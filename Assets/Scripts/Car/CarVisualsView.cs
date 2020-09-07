@@ -13,10 +13,17 @@ namespace Car
         [SerializeField]
         private WheelSetter wheelSetMethod = WheelSetter.ManualInspector;
 
-        private Transform _wheelBackLeft;
-        private Transform _wheelBackRight;
-        private Transform _wheelFrontLeft;
-        private Transform _wheelFrontRight;
+        [SerializeField]
+        private Transform wheelBackLeft;
+
+        [SerializeField]
+        private Transform wheelBackRight;
+
+        [SerializeField]
+        private Transform wheelFrontLeft;
+
+        [SerializeField]
+        private Transform wheelFrontRight;
 
         private IWheelSetter _wheelSetter;
 
@@ -29,24 +36,24 @@ namespace Car
                     break;
             }
 
-            _wheelBackLeft = _wheelSetter?.GetWheelBackLeft();
-            _wheelBackRight = _wheelSetter?.GetWheelBackRight();
-            _wheelFrontLeft = _wheelSetter?.GetWheelFrontLeft();
-            _wheelFrontRight = _wheelSetter?.GetWheelFrontRight();
+            wheelBackLeft = _wheelSetter?.GetWheelBackLeft();
+            wheelBackRight = _wheelSetter?.GetWheelBackRight();
+            wheelFrontLeft = _wheelSetter?.GetWheelFrontLeft();
+            wheelFrontRight = _wheelSetter?.GetWheelFrontRight();
         }
 
         public void SetWheelSpeed(float speed)
         {
-            if (_wheelBackLeft == null)
+            if (wheelBackLeft == null)
             {
                 Debug.LogWarning("Wheels are not set!");
                 return;
             }
 
-            SetWheelRotation(_wheelBackLeft, speed);
-            SetWheelRotation(_wheelBackRight, speed);
-            SetWheelRotation(_wheelFrontLeft, speed);
-            SetWheelRotation(_wheelFrontRight, speed);
+            SetWheelRotation(wheelBackLeft, speed);
+            SetWheelRotation(wheelBackRight, speed);
+            SetWheelRotation(wheelFrontLeft, speed);
+            SetWheelRotation(wheelFrontRight, speed);
         }
 
         private void SetWheelRotation(Transform wheelTransform, float speed)
