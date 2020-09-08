@@ -41,10 +41,5 @@ namespace Car
 
             SpeedChanged?.Invoke(_rigidbody.velocity.sqrMagnitude);
         }
-
-        private void OnGUI()
-        {
-            GUI.TextArea(new Rect(10, 10, 100, 100), _rigidbody.velocity.sqrMagnitude.ToString());
-        }
     }
 }
