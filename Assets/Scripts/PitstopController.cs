@@ -28,12 +28,6 @@ public class PitstopController : MonoBehaviour
     private Slider timeSlider;
 
     [SerializeField]
-    private Transform shakeTarget;
-
-    [SerializeField]
-    private float shakeStrength = 0.1f;
-
-    [SerializeField]
     private CarMovement carMovement;
 
     [SerializeField]
@@ -55,10 +49,10 @@ public class PitstopController : MonoBehaviour
         pitstopTrigger.TriggerEntered += OnEnteredPitstop;
     }
 
-    private void SetControls(bool enabled)
+    private void SetControls(bool isEnabled)
     {
-        carMovement.enabled = enabled;
-        carSteering.enabled = enabled;
+        carMovement.enabled = isEnabled;
+        carSteering.enabled = isEnabled;
     }
 
     private void OnEnteredPitstop(Collider car)
