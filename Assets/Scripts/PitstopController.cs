@@ -1,6 +1,6 @@
-﻿using System;
-using Car;
+﻿using Car;
 using DG.Tweening;
+using Quiz;
 using UnityEngine;
 using UnityEngine.UI;
 
