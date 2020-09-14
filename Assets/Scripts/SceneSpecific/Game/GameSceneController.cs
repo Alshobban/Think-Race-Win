@@ -17,7 +17,7 @@ namespace SceneSpecific.Game
 
         private void Awake()
         {
-            if (!PhotonNetwork.IsConnectedAndReady)
+            if (PhotonNetwork.OfflineMode)
                 return;
 
             var newCar = PhotonNetwork.Instantiate(localPlayerPrefabLocation, startPosition.position,

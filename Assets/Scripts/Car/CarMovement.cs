@@ -8,6 +8,9 @@ namespace Car
         public event Action<float> SpeedChanged;
 
         [SerializeField]
+        private float downForce = 100f;
+
+        [SerializeField]
         private Transform visualsTransform;
 
         [SerializeField]
@@ -38,6 +41,8 @@ namespace Car
             {
                 _rigidbody.AddForce(_verticalInput * visualsTransform.forward * Acceleration, ForceMode.Acceleration);
             }
+
+            _rigidbody.AddForce(Vector3.down * downForce);
 
             SpeedChanged?.Invoke(_rigidbody.velocity.sqrMagnitude);
         }
