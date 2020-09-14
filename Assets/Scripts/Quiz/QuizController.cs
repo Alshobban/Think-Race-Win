@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using Random = UnityEngine.Random;
 
 namespace Quiz
@@ -82,10 +83,10 @@ namespace Quiz
         //Fill in buttons text with answers related to the question selected !
         private void FillInAnswers(Question question, GameObject[] answers)
         {
-            answers[0].gameObject.GetComponent<TextMesh>().text = question.CorrectAnswer;
-            answers[2].gameObject.GetComponent<TextMesh>().text = question.IncorrectAnswer2;
-            answers[3].gameObject.GetComponent<TextMesh>().text = question.IncorrectAnswer3;
-            answers[1].gameObject.GetComponent<TextMesh>().text = question.IncorrectAnswer1;
+            answers[0].gameObject.GetComponent<TextMeshProUGUI>().text = question.CorrectAnswer;
+            answers[2].gameObject.GetComponent<TextMeshProUGUI>().text = question.IncorrectAnswer2;
+            answers[3].gameObject.GetComponent<TextMeshProUGUI>().text = question.IncorrectAnswer3;
+            answers[1].gameObject.GetComponent<TextMeshProUGUI>().text = question.IncorrectAnswer1;
         }
 
         //resorting method !
@@ -113,7 +114,7 @@ namespace Quiz
         {
             for (int i = 0; i < answers.Length; i++)
             {
-                if (answers[i].gameObject.GetComponent<Text>().text != questionObj.CorrectAnswer)
+                if (answers[i].gameObject.GetComponent<TextMeshProUGUI>().text != questionObj.CorrectAnswer)
                 {
                     answers[i].transform.parent.GetComponent<Image>().color = Color.red;
                     answers[i].transform.parent.GetComponent<Button>().enabled = false;
@@ -137,7 +138,7 @@ namespace Quiz
             //getting a random question !
             _randomIndex = Random.Range(0, _questionList.Count);
             questionObj = _questionList[_randomIndex];
-            questionText.GetComponent<TextMesh>().text = questionObj.QuestionName;
+            questionText.GetComponent<TextMeshProUGUI>().text = questionObj.QuestionName;
             FillInAnswers(questionObj, answersOptions);
             //calling resorting Method!
             ResortingAnswers(answersOptions);
