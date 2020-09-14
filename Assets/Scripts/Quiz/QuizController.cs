@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace Quiz
 {
@@ -23,6 +25,11 @@ namespace Quiz
         public void HideQuiz()
         {
             GetComponent<Canvas>().enabled = false;
+        }
+
+        private void Start()
+        {
+            HideQuiz();
         }
 
         // Start is called before the first frame update
