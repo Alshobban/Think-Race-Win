@@ -64,7 +64,7 @@ public class PitstopController : MonoBehaviour
                     quizController.HideQuiz();
                 })
                 .Append(car.attachedRigidbody.DOMove(pitstopEndPosition.position, moveToPitstopInterval))
-                .AppendCallback(() => car.GetComponentInParent<CarMovementView>().SetControls(false));
+                .AppendCallback(() => car.GetComponentInParent<CarMovementView>().SetControls(true));
         }
     }
 }
