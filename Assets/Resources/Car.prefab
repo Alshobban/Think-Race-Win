@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7872329145996082149}
   - component: {fileID: 7872329145996082147}
   - component: {fileID: 7872329145996082148}
+  - component: {fileID: 9186674401245651424}
   m_Layer: 0
   m_Name: Physics
   m_TagString: Player
@@ -76,6 +77,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &9186674401245651424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7872329145996082151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
 --- !u!1 &7872329146089263816
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,6 +103,7 @@ GameObject:
   - component: {fileID: 7872329146089263831}
   - component: {fileID: 7872329146089263830}
   - component: {fileID: 7872329146089263829}
+  - component: {fileID: 8313117299188357636}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -140,6 +157,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transformToFollow: {fileID: 7872329145996082150}
   offset: {x: 0, y: -1.5, z: 0}
+--- !u!114 &8313117299188357636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7872329146089263816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 0
+  m_SynchronizeScale: 0
 --- !u!1 &7872329146946743219
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,6 +183,7 @@ GameObject:
   - component: {fileID: 7872329146946743218}
   - component: {fileID: 7872329146946743217}
   - component: {fileID: 7872329146946743216}
+  - component: {fileID: 9091719770247151197}
   m_Layer: 0
   m_Name: Steering Anchor
   m_TagString: Untagged
@@ -199,6 +232,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphereRadius: 0.2
   pivotColor: {r: 1, g: 0.06774928, b: 0, a: 0.64705884}
+--- !u!114 &9091719770247151197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7872329146946743219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
 --- !u!1 &7872329147109735132
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,7 +364,8 @@ MonoBehaviour:
   observableSearch: 2
   Synchronization: 3
   OwnershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 9186674401245651424}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
