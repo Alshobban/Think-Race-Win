@@ -8,7 +8,7 @@ namespace Quiz
 {
     public class QuizController : MonoBehaviour
     {
-        public Text questionText;
+        public GameObject questionText;
         public GameObject[] answersOptions; //= new GameObject[];
         public Question questionObj;
 
@@ -82,10 +82,10 @@ namespace Quiz
         //Fill in buttons text with answers related to the question selected !
         private void FillInAnswers(Question question, GameObject[] answers)
         {
-            answers[0].gameObject.GetComponent<Text>().text = question.CorrectAnswer;
-            answers[2].gameObject.GetComponent<Text>().text = question.IncorrectAnswer2;
-            answers[3].gameObject.GetComponent<Text>().text = question.IncorrectAnswer3;
-            answers[1].gameObject.GetComponent<Text>().text = question.IncorrectAnswer1;
+            answers[0].gameObject.GetComponent<TextMesh>().text = question.CorrectAnswer;
+            answers[2].gameObject.GetComponent<TextMesh>().text = question.IncorrectAnswer2;
+            answers[3].gameObject.GetComponent<TextMesh>().text = question.IncorrectAnswer3;
+            answers[1].gameObject.GetComponent<TextMesh>().text = question.IncorrectAnswer1;
         }
 
         //resorting method !
@@ -137,7 +137,7 @@ namespace Quiz
             //getting a random question !
             _randomIndex = Random.Range(0, _questionList.Count);
             questionObj = _questionList[_randomIndex];
-            questionText.text = questionObj.QuestionName;
+            questionText.GetComponent<TextMesh>().text = questionObj.QuestionName;
             FillInAnswers(questionObj, answersOptions);
             //calling resorting Method!
             ResortingAnswers(answersOptions);
