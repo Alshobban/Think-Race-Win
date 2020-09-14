@@ -1,5 +1,6 @@
 ﻿using Car;
 using DG.Tweening;
+using Photon.Pun;
 using Quiz;
 using UnityEngine;
 using UnityEngine.UI;
@@ -49,18 +50,12 @@ public class PitstopController : MonoBehaviour
         pitstopTrigger.TriggerEntered += OnEnteredPitstop;
     }
 
-    private void SetControls(bool isEnabled)
-    {
-        carMovement.enabled = isEnabled;
-        carSteering.enabled = isEnabled;
-    }
-
     private void OnEnteredPitstop(Collider car)
     {
-        if (car.CompareTag("Player"))
+        if (car.CompareTag("Player") && (car.GetComponentInParent<PhotonView>().IsMine || PhotonNetwork.OfflineMode))
         {
             DOTween.Sequence()
-                .AppendCallback(() => SetControls(false))
+                .AppendCallback(() => car.GetComponentInParent<CarMovementView>().SetControls(false))
                 .Append(car.attachedRigidbody.DOMove(pitstopPosition.position, moveToPitstopInterval))
                 .AppendCallback(() =>
                 {
@@ -76,7 +71,7 @@ public class PitstopController : MonoBehaviour
                     quizController.HideQuiz();
                 })
                 .Append(car.attachedRigidbody.DOMove(pitstopEndPosition.position, moveToPitstopInterval))
-                .AppendCallback(() => SetControls(true));
+                .AppendCallback(() => car.GetComponentInParent<CarMovementView>().SetControls(false));
         }
     }
 }
