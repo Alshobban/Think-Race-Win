@@ -5,6 +5,7 @@
 # Photon
 /Assets/Photon/PhotonUnityNetworking/Resources.meta
 /Assets/Photon/PhotonUnityNetworking/Resources
+/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset
 
 # Builds
 /!builds/
