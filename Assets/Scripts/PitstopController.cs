@@ -28,13 +28,6 @@ public class PitstopController : MonoBehaviour
     [SerializeField]
     private Slider timeSlider;
 
-    [SerializeField]
-    private CarMovement carMovement;
-
-    [SerializeField]
-    private SteerRotate carSteering;
-
-
     private void Start()
     {
         timeSlider.gameObject.SetActive(false);

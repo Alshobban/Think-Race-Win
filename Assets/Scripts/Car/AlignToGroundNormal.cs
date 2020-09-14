@@ -33,7 +33,7 @@ namespace Car
         private void Update()
         {
             if (Physics.Raycast(transform.position, Vector3.down, out var hit, maxRaycastDistance, groundLayer) &&
-                Vector3.Angle(transform.up, hit.normal) > 10f)
+                Vector3.Angle(transform.up, hit.normal) > 1f)
             {
                 transform.up = Vector3.Lerp(transform.up, hit.normal, RotationSmoothing);
             }
