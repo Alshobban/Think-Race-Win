@@ -15,7 +15,7 @@ public class ReplayLevel : MonoBehaviour
     public void Reset()
     {
         canvas.SetActive(false);
-        SceneManager.LoadScene("MainQuiz");
+        SceneManager.LoadScene("Game");
     }
 
     public void EnableCanvas()
