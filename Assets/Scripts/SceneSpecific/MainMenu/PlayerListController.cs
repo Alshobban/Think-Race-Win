@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Photon.Realtime;
 using TMPro;
-using UniRx;
 using UnityEngine;
 
 namespace SceneSpecific.MainMenu
