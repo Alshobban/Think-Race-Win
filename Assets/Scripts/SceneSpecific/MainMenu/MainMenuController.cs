@@ -3,6 +3,7 @@ using Network;
 using Photon.Pun;
 using Photon.Realtime;
 using PhotonRx;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,6 +17,9 @@ namespace SceneSpecific.MainMenu
 
         [SerializeField]
         private Button joinRoomButton;
+
+        [SerializeField]
+        private TMP_InputField nameInput;
 
         [Scene]
         [SerializeField]
@@ -52,14 +56,28 @@ namespace SceneSpecific.MainMenu
             joinRoomButton.interactable = true;
         }
 
-        private async void OnCreateRoomButtonClicked()
+        private bool ValidateAndSetName()
         {
-            await PhotonTask.CreateRoom(null);
+            if (nameInput.text != "")
+            {
+                PhotonNetwork.NickName = nameInput.text;
+                return true;
+            }
+
+            MessagePanel.ShowMessage("Name should not be empty!");
+            return false;
+        }
+
+        private void OnCreateRoomButtonClicked()
+        {
+            if (ValidateAndSetName())
+                PhotonNetwork.CreateRoom(null);
         }
 
         private void OnJoinRoomButtonClicked()
         {
-            PhotonNetwork.JoinRandomRoom();
+            if (ValidateAndSetName())
+                PhotonNetwork.JoinRandomRoom();
         }
 
         public override void OnCreatedRoom()
@@ -71,7 +89,7 @@ namespace SceneSpecific.MainMenu
         public override void OnJoinedRoom()
         {
             Debug.Log("Joined Room");
-            SceneManager.LoadScene(roomSetupScene);
+            PhotonNetwork.LoadLevel(roomSetupScene);
         }
 
         public override void OnJoinRandomFailed(short returnCode, string message)
