@@ -2,6 +2,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/unity
 # Edit at https://www.toptal.com/developers/gitignore?templates=unity
 
+# Photon
+/Assets/Photon/PhotonUnityNetworking/Resources.meta
+/Assets/Photon/PhotonUnityNetworking/Resources
+
 # Builds
 /!builds/
 
