@@ -30,6 +30,11 @@ namespace SceneSpecific.MainMenu
             createRoomButton.interactable = false;
             joinRoomButton.interactable = false;
 
+            if (PhotonNetwork.NickName != "")
+            {
+                nameInput.text = PhotonNetwork.NickName;
+            }
+
             PhotonNetwork.AutomaticallySyncScene = true;
             NetworkUtils.ConnectToMaster();
         }
