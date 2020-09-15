@@ -14,7 +14,6 @@ namespace Car
         [SerializeField]
         private float wheelSpeedMultiplier = 1f;
 
-        [Range(0f, 1f)]
         [SerializeField]
         private float hillClimbSmoothing;
 

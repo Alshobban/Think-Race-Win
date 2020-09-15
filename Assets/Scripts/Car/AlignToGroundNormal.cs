@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Car
 {
@@ -10,32 +11,25 @@ namespace Car
         [SerializeField]
         private float maxRaycastDistance = 10f;
 
-        [Range(0f, 1f)]
+        [SerializeField]
+        private float maxRotationStep = 0.1f;
+
         [SerializeField]
         private float rotationSmoothing;
 
         public float RotationSmoothing
         {
             get => rotationSmoothing;
-            set
-            {
-                if (value > 0f || value <= 1f)
-                {
-                    rotationSmoothing = value;
-                }
-                else
-                {
-                    Debug.LogError("Rotation smoothing value should be between 0f and 1f!");
-                }
-            }
+            set => rotationSmoothing = value;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            if (Physics.Raycast(transform.position, Vector3.down, out var hit, maxRaycastDistance, groundLayer) &&
+            if (Physics.Raycast(transform.position, -transform.up, out var hit, maxRaycastDistance, groundLayer) &&
                 Vector3.Angle(transform.up, hit.normal) > 1f)
             {
-                transform.up = Vector3.Lerp(transform.up, hit.normal, RotationSmoothing);
+                transform.up = Vector3.Lerp(transform.up, hit.normal,
+                    1f / (rotationSmoothing * Math.Max(maxRotationStep, hit.distance)));
             }
         }
     }

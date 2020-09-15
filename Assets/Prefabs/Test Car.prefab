@@ -84,9 +84,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAcceleration: 85
-  steeringSpeed: 4
+  steeringSpeed: 3
   wheelSpeedMultiplier: 1
-  hillClimbSmoothing: 0.5
+  hillClimbSmoothing: 20
   carMovement: {fileID: 3354210039515487654}
   carSteering: {fileID: 3354210038584741362}
 --- !u!114 &3354210037802179739
@@ -132,7 +132,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents: []
-  viewIdField: 1
+  viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!1 &3354210038584741360
@@ -179,7 +179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 487689884a6ccdf4693ace9fc944eaa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 4
+  rotationSpeed: 3
+  f: 0
 --- !u!114 &3354210038584741363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,8 +243,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  maxRaycastDistance: 10
-  rotationSmoothing: 0.5
+  maxRaycastDistance: 50
+  maxRotationStep: 0.3
+  rotationSmoothing: 20
 --- !u!114 &3354210038901683350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,7 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12ec5c20db1c42748aa8a4e5dbfeaf74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  downForce: 0
+  downForce: 20
   visualsTransform: {fileID: 3354210038584741361}
   acceleration: 85
 --- !u!135 &3354210039515487648
