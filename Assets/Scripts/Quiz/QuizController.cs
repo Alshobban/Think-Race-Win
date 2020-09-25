@@ -138,7 +138,7 @@ namespace Quiz
             //getting a random question !
             _randomIndex = Random.Range(0, _questionList.Count);
             questionObj = _questionList[_randomIndex];
-            questionText.GetComponent<TextMeshProUGUI>().text = questionObj.QuestionName;
+            questionText.GetComponent<TextMeshProUGUI>().text = questionObj.QuestionText;
             FillInAnswers(questionObj, answersOptions);
             //calling resorting Method!
             ResortingAnswers(answersOptions);
