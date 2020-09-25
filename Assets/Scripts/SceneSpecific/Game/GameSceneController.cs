@@ -1,4 +1,5 @@
 using Cinemachine;
+using Network;
 using Photon.Pun;
 using UnityEngine;
 
@@ -17,17 +18,24 @@ namespace SceneSpecific.Game
 
         private void Awake()
         {
-            if (PhotonNetwork.OfflineMode)
-                return;
-
-            var newCar = PhotonNetwork.Instantiate(localPlayerPrefabLocation, startPosition.position,
-                Quaternion.identity);
+            GameObject newCar;
+            if (PhotonNetwork.IsConnected)
+            {
+                newCar = PhotonNetwork.Instantiate(localPlayerPrefabLocation, startPosition.position,
+                    Quaternion.identity);
+            }
+            else
+            {
+                Debug.LogWarning("Not connected to the network!");
+                newCar = Instantiate(Resources.Load<GameObject>(localPlayerPrefabLocation + "Offline"),
+                    startPosition.position,
+                    Quaternion.identity);
+            }
 
             newCar.transform.GetChild(0).GetChild(0).Rotate(0f, startPosition.rotation.eulerAngles.y, 0f);
             Debug.Log(newCar.transform.GetChild(0).rotation.y);
 
             var anchor = newCar.transform.GetChild(0).GetChild(0);
-
             cinemachineVirtualCamera.Follow = anchor;
             cinemachineVirtualCamera.LookAt = anchor;
         }
