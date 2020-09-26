@@ -1,25 +1,24 @@
 ﻿using System;
-using MessagePack;
+using UnityEngine;
 
 namespace Quiz
 {
     [Serializable]
-    [MessagePackObject]
     public struct Question
     {
-        [Key(0)]
+        [field: SerializeField]
         public string QuestionText { get; private set; }
 
-        [Key(1)]
+        [field: SerializeField]
         public string CorrectAnswer { get; private set; }
 
-        [Key(2)]
+        [field: SerializeField]
         public string IncorrectAnswer1 { get; private set; }
 
-        [Key(3)]
+        [field: SerializeField]
         public string IncorrectAnswer2 { get; private set; }
 
-        [Key(4)]
+        [field: SerializeField]
         public string IncorrectAnswer3 { get; private set; }
 
         public Question(string questionText, string correctAnswer, string ans1, string ans2, string ans3)
@@ -29,18 +28,6 @@ namespace Quiz
             IncorrectAnswer1 = ans1;
             IncorrectAnswer2 = ans2;
             IncorrectAnswer3 = ans3;
-        }
-
-        public static byte[] Serialize(object customObject)
-        {
-            return MessagePackSerializer.Serialize((Question) customObject,
-                MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4Block));
-        }
-
-        public static object Deserialize(byte[] serializedCustomObject)
-        {
-            return MessagePackSerializer.Deserialize(typeof(Question), serializedCustomObject,
-                MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4Block));
         }
     }
 }
