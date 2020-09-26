@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,6 +7,8 @@ namespace Utilities
 {
     public abstract class ScrollListController<T> : MonoBehaviour
     {
+        public event Action<GameObject> LineAdded;
+
         [SerializeField]
         private GameObject listLinePrefab;
 
@@ -23,6 +26,8 @@ namespace Utilities
             newPlayerLine.GetComponentInChildren<TextMeshProUGUI>()?.SetText(GetLineText(newObject));
 
             Objects.Add(newObject, newPlayerLine);
+
+            LineAdded?.Invoke(newPlayerLine);
         }
 
         public void RemoveLine(T objectToRemove)
