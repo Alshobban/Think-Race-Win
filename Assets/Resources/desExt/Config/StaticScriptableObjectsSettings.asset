@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87506f84a9d149e9b7f5c7c244f16bc6, type: 3}
   m_Name: StaticScriptableObjectsSettings
   m_EditorClassIdentifier: 
-  configs: []
+  configs:
+  - type: Settings.NetworkSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    preset: 0
+    scriptableObject: {fileID: 11400000, guid: 14918560fc6bc0945bfdfa8d82200804, type: 2}
+  - type: Settings.NetworkSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    preset: 1
+    scriptableObject: {fileID: 11400000, guid: 14918560fc6bc0945bfdfa8d82200804, type: 2}
