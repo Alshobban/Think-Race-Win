@@ -7,7 +7,7 @@ namespace Questions
     {
         public const string QuestionPacksPrefsName = "QuestionPacks";
 
-        public static IEnumerable<QuestionPack> GetSavedQuestionPacks()
+        public static IEnumerable<QuestionPack> LoadSavedQuestionPacks()
         {
             return JsonUtility.FromJson<QuestionPackPack>(PlayerPrefs.GetString(QuestionPacksPrefsName)).QuestionPacks;
         }
