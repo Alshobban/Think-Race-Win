@@ -1,4 +1,5 @@
 using Cinemachine;
+using desExt.Runtime.References;
 using Network;
 using Photon.Pun;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace SceneSpecific.Game
         private Transform startPosition;
 
         [SerializeField]
-        private string localPlayerPrefabLocation;
+        private StringReference localPlayerPrefabLocation;
 
         [SerializeField]
         private CinemachineVirtualCamera cinemachineVirtualCamera;
