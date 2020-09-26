@@ -1862,7 +1862,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPosition: {fileID: 109935672}
-  localPlayerPrefabLocation: Car
+  localPlayerPrefabLocation:
+    variableReference: {fileID: 11400000, guid: 68ad1cf900c1d21449dec1e51c41b402, type: 2}
+    constantValue: 
+    useConstantValue: 0
   cinemachineVirtualCamera: {fileID: 582914491}
 --- !u!4 &308675135
 Transform:
@@ -8194,6 +8197,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questionText: {fileID: 1423698072}
   answersOptions: []
+  questionObj:
+    <QuestionText>k__BackingField: 
+    <CorrectAnswer>k__BackingField: 
+    <IncorrectAnswer1>k__BackingField: 
+    <IncorrectAnswer2>k__BackingField: 
+    <IncorrectAnswer3>k__BackingField: 
 --- !u!114 &1641833617
 MonoBehaviour:
   m_ObjectHideFlags: 0
