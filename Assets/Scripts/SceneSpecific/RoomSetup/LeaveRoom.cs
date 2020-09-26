@@ -6,7 +6,7 @@ using Utilities;
 
 namespace SceneSpecific.RoomSetup
 {
-    public class LeaveRoom : MonoBehaviourPunCallbacks
+    public class LeaveRoom : MonoBehaviour
     {
         [SerializeField]
         private Button backButton;
