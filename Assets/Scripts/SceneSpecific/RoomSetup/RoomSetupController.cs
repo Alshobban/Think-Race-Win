@@ -1,10 +1,8 @@
-using System.Collections.Generic;
 using NaughtyAttributes;
 using Photon.Pun;
 using Photon.Realtime;
-using SceneSpecific.MainMenu;
-using UniRx;
 using UnityEngine;
+using Utilities;
 using Button = UnityEngine.UI.Button;
 
 namespace SceneSpecific.RoomSetup
@@ -30,7 +28,7 @@ namespace SceneSpecific.RoomSetup
 
             foreach (var player in PhotonNetwork.PlayerList)
             {
-                playerList.AddPlayer(player);
+                playerList.AddLine(player);
             }
         }
 
@@ -68,12 +66,12 @@ namespace SceneSpecific.RoomSetup
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
-            playerList.AddPlayer(newPlayer);
+            playerList.AddLine(newPlayer);
         }
 
         public override void OnPlayerLeftRoom(Player otherPlayer)
         {
-            playerList.RemovePlayer(otherPlayer);
+            playerList.RemoveLine(otherPlayer);
 
             SetupButtons();
         }
