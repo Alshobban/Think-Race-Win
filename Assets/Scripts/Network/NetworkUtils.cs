@@ -1,4 +1,7 @@
 using Photon.Pun;
+using Photon.Realtime;
+using Settings;
+using UnityEngine;
 
 namespace Network
 {
@@ -6,7 +9,15 @@ namespace Network
     {
         public static void ConnectToMaster()
         {
-            PhotonNetwork.ConnectUsingSettings();
+            if (PhotonNetwork.NetworkClientState != ClientState.Disconnected)
+            {
+                PhotonNetwork.ConnectUsingSettings();
+                PhotonNetwork.ConnectToRegion(NetworkSettings.Instance.ServerRegion);
+            }
+            else
+            {
+                Debug.LogWarning("Already connected!");
+            }
         }
     }
 }
