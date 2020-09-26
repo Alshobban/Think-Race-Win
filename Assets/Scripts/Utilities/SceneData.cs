@@ -1,33 +1,47 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Utilities
 {
-    public class SceneData<T> : MonoBehaviour
+    public class SceneData<T> : MonoBehaviour where T : SceneData<T>
     {
-        public static SceneData<T> Instance
+        public static T Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    throw new Exception("Can't find an instance of SceneData!");
+                    var foundInstances = FindObjectsOfType<T>();
+
+                    if (foundInstances.Length > 1)
+                    {
+                        var instanceNames =
+                            foundInstances.Select(t => t.gameObject.name).Aggregate((a, b) => a + ", " + b);
+                        Debug.LogError($"Found {foundInstances.Length} instances of {typeof(T).Name}! {instanceNames}");
+                    }
+                    else if (foundInstances.Length == 0)
+                    {
+                        throw new Exception("Can't find an instance of SceneData!");
+                    }
+                    else
+                    {
+                        _instance = foundInstances.First();
+                    }
                 }
 
                 return _instance;
             }
         }
 
-        private static SceneData<T> _instance;
+        private static T _instance;
 
         private void Awake()
         {
-            if (_instance != null)
+            if (_instance == null)
             {
-                Debug.LogError($"Found second instance of {typeof(T).Name}!", this);
+                _instance = this as T;
             }
-
-            _instance = this;
         }
     }
 }
