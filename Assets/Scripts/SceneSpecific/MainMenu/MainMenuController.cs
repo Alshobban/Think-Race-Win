@@ -87,13 +87,13 @@ namespace SceneSpecific.MainMenu
 
         public override void OnCreatedRoom()
         {
-            Debug.Log("room created");
+            Debug.Log($"Room created: {PhotonNetwork.CurrentRoom}");
             SceneManager.LoadScene(roomSetupScene);
         }
 
         public override void OnJoinedRoom()
         {
-            Debug.Log("Joined Room");
+            Debug.Log($"Joined Room: {PhotonNetwork.CurrentRoom}");
             PhotonNetwork.LoadLevel(roomSetupScene);
         }
 
