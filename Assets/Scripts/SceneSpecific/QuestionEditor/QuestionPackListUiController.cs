@@ -1,6 +1,8 @@
 using System.Linq;
+using NaughtyAttributes;
 using Questions;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace SceneSpecific.QuestionEditor
@@ -22,8 +24,17 @@ namespace SceneSpecific.QuestionEditor
         [SerializeField]
         private Button removePackButton;
 
+        [Scene]
+        [SerializeField]
+        private string mainMenuScene;
+
+        [SerializeField]
+        private Button mainMenuButton;
+
         private void OnEnable()
         {
+            mainMenuButton.onClick.AddListener(GotoMainMenu);
+
             addPackButton.onClick.AddListener(OnAddPackClicked);
             editPackButton.onClick.AddListener(OnEditPackClicked);
             removePackButton.onClick.AddListener(OnRemovePackClicked);
@@ -31,9 +42,16 @@ namespace SceneSpecific.QuestionEditor
 
         private void OnDisable()
         {
+            mainMenuButton.onClick.RemoveListener(GotoMainMenu);
+
             addPackButton.onClick.RemoveListener(OnAddPackClicked);
             editPackButton.onClick.RemoveListener(OnEditPackClicked);
             removePackButton.onClick.RemoveListener(OnRemovePackClicked);
+        }
+
+        private void GotoMainMenu()
+        {
+            SceneManager.LoadScene(mainMenuScene);
         }
 
         public void ShowAndReload()
