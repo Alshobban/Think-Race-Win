@@ -6,8 +6,10 @@ namespace Questions
     [Serializable]
     public class QuestionPackPack
     {
-        [field: SerializeField]
-        public QuestionPack[] QuestionPacks { get; private set; }
+        [SerializeField]
+        private QuestionPack[] p;
+
+        public QuestionPack[] QuestionPacks => p;
 
         public QuestionPackPack()
         {
@@ -15,7 +17,7 @@ namespace Questions
 
         public QuestionPackPack(QuestionPack[] questionPacks)
         {
-            QuestionPacks = questionPacks;
+            this.p = questionPacks;
         }
     }
 }

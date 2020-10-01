@@ -4,30 +4,48 @@ using UnityEngine;
 namespace Quiz
 {
     [Serializable]
-    public struct Question
+    public struct Question : IEquatable<Question>
     {
-        [field: SerializeField]
-        public string QuestionText { get; private set; }
+        //Names are bad for the sake of saving the space
+        [SerializeField]
+        private string q;
 
-        [field: SerializeField]
-        public string CorrectAnswer { get; private set; }
+        [SerializeField]
+        private string a;
 
-        [field: SerializeField]
-        public string IncorrectAnswer1 { get; private set; }
+        [SerializeField]
+        private string i1;
 
-        [field: SerializeField]
-        public string IncorrectAnswer2 { get; private set; }
+        [SerializeField]
+        private string i2;
 
-        [field: SerializeField]
-        public string IncorrectAnswer3 { get; private set; }
+        [SerializeField]
+        private string i3;
+
+        public string QuestionText => q;
+
+        public string CorrectAnswer => a;
+
+        public string IncorrectAnswer1 => i1;
+
+        public string IncorrectAnswer2 => i2;
+
+        public string IncorrectAnswer3 => i3;
 
         public Question(string questionText, string correctAnswer, string ans1, string ans2, string ans3)
         {
-            QuestionText = questionText;
-            CorrectAnswer = correctAnswer;
-            IncorrectAnswer1 = ans1;
-            IncorrectAnswer2 = ans2;
-            IncorrectAnswer3 = ans3;
+            q = questionText;
+            a = correctAnswer;
+            i1 = ans1;
+            i2 = ans2;
+            i3 = ans3;
+        }
+
+        public bool Equals(Question other)
+        {
+            return QuestionText == other.QuestionText && CorrectAnswer == other.CorrectAnswer &&
+                   IncorrectAnswer1 == other.IncorrectAnswer1 && IncorrectAnswer2 == other.IncorrectAnswer2 &&
+                   IncorrectAnswer3 == other.IncorrectAnswer3;
         }
     }
 }

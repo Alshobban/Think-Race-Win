@@ -6,6 +6,9 @@ namespace SceneSpecific.QuestionEditor
     public class QuestionEditorSceneData : SceneData<QuestionEditorSceneData>
     {
         [field: SerializeField]
-        public QuestionPackListController QuestionPackListController { get; private set; }
+        public QuestionPackListUiController QuestionPackListUiController { get; private set; }
+
+        [field: SerializeField]
+        public QuestionPackEditorUiController QuestionPackEditorUiController { get; private set; }
     }
 }

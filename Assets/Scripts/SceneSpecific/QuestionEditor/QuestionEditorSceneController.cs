@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Linq;
 using Questions;
 using UnityEngine;
 
@@ -9,18 +9,12 @@ namespace SceneSpecific.QuestionEditor
         [SerializeField]
         private QuestionPackScriptableObject questionPack;
 
-        private IEnumerable<QuestionPack> _questionPacks;
-
         private void Awake()
         {
-            QuestionPackLoader.SaveQuestionPacks(questionPack.QuestionPack);
+            QuestionPackLoader.QuestionPacks =
+                QuestionPackLoader.QuestionPacks.Append(questionPack.QuestionPack).ToArray();
 
-            _questionPacks = QuestionPackLoader.LoadSavedQuestionPacks();
-
-            foreach (var pack in _questionPacks)
-            {
-                QuestionEditorSceneData.Instance.QuestionPackListController.AddLine(pack);
-            }
+            QuestionEditorSceneData.Instance.QuestionPackListUiController.ShowAndReload();
         }
     }
 }

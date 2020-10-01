@@ -1,4 +1,3 @@
-using System;
 using Questions;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +9,17 @@ namespace SceneSpecific.QuestionEditor
     {
         [SerializeField]
         private ToggleGroup toggleGroup;
+
+        public QuestionPack GetSelected => Objects[toggleGroup.GetFirstActiveToggle().gameObject];
+
+        public void AddSavedQuestionPacks()
+        {
+            RemoveAll();
+            foreach (var questionPack in QuestionPackLoader.QuestionPacks)
+            {
+                AddLine(questionPack);
+            }
+        }
 
         private void OnEnable()
         {

@@ -1,23 +1,46 @@
-using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace Questions
 {
     public static class QuestionPackLoader
     {
-        public const string QuestionPacksPrefsName = "QuestionPacks";
+        private const string QuestionPacksPrefsName = "QuestionPacks";
 
-        public static IEnumerable<QuestionPack> LoadSavedQuestionPacks()
+        public static QuestionPack[] QuestionPacks
         {
-            return JsonUtility.FromJson<QuestionPackPack>(PlayerPrefs.GetString(QuestionPacksPrefsName)).QuestionPacks;
+            get => _questionPacks ?? (_questionPacks = LoadSavedQuestionPacks());
+
+            set
+            {
+                SaveQuestionPacks(value);
+                _questionPacks = LoadSavedQuestionPacks();
+            }
         }
 
-        public static void SaveQuestionPacks(params QuestionPack[] questionPacks)
+        private static QuestionPack[] _questionPacks;
+
+        private static QuestionPack[] LoadSavedQuestionPacks()
+        {
+            var loadSavedQuestionPacks = JsonUtility
+                .FromJson<QuestionPackPack>(PlayerPrefs.GetString(QuestionPacksPrefsName)).QuestionPacks;
+            
+            if (loadSavedQuestionPacks == null)
+            {
+                return new QuestionPack[0];
+            }
+
+            return loadSavedQuestionPacks;
+        }
+
+        private static void SaveQuestionPacks(params QuestionPack[] questionPacks)
         {
             var questionPackPack = new QuestionPackPack(questionPacks);
 
             var data = JsonUtility.ToJson(questionPackPack);
             Debug.Log($"Question packs' saved size is {data.Length * sizeof(char)} bytes");
+
+            Debug.Log(data);
 
             PlayerPrefs.SetString(QuestionPacksPrefsName, data);
         }
