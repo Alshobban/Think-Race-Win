@@ -56,11 +56,10 @@ namespace SceneSpecific.RoomSetup
 
         private void OnStartButtonClicked()
         {
-            PhotonNetwork.LoadLevel(gameScene);
-
             PhotonNetwork.CurrentRoom.IsOpen = false;
 
             photonView.RPC(nameof(SetQuestionPack), RpcTarget.All, questionPackListController.GetSelected);
+            PhotonNetwork.LoadLevel(gameScene);
         }
 
         [PunRPC]

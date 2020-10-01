@@ -8,7 +8,7 @@ namespace SceneSpecific.QuestionEditor
     public class QuestionPackListController : ScrollListController<QuestionPack>
     {
         [SerializeField]
-        private ToggleGroup toggleGroup;
+        public ToggleGroup toggleGroup;
 
         public QuestionPack GetSelected => Objects[toggleGroup.GetFirstActiveToggle().gameObject];
 
