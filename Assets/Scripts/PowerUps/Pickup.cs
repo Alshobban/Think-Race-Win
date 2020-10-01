@@ -21,10 +21,14 @@ public class Pickup : MonoBehaviour
         //instantiate the effect!
         Instantiate(powerupEffectObj, transform.position, transform.rotation);
         //instantiate the pickup on the player gameobj!
-        GameObject pickupobj = Instantiate(pickupPowerupObj, playerCollider.transform.position, Quaternion.identity);
-        pickupobj.transform.SetParent(playerCollider.transform);
-        //
-        added = true;
+        if (playerCollider.transform.childCount < 1)
+        {
+            GameObject pickupobj = Instantiate(pickupPowerupObj, playerCollider.transform.position, Quaternion.identity);
+            pickupobj.transform.SetParent(playerCollider.transform);
+            //
+            added = true;
+        }
+        
         //deactivating the mesh and collider before destroying the gameobject later!
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
