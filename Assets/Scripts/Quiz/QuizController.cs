@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using SceneSpecific.Game;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -13,7 +15,7 @@ namespace Quiz
         public GameObject[] answersOptions; //= new GameObject[];
         public Question questionObj;
 
-        private readonly List<Question> _questionList = new List<Question>();
+        private List<Question> _questionList = new List<Question>();
 
         private int _randomIndex;
 
@@ -37,7 +39,7 @@ namespace Quiz
         private void InitQuestions()
         {
             //fill in the question list!
-            FillInQuestions(_questionList);
+            _questionList = GameData.CurrentQuestionPack.Questions.ToList();
             //Getting all the answers buttons on the scene!
             answersOptions = GameObject.FindGameObjectsWithTag("AnswerText");
             //defining the question from the four questions,its answers and re ordering the answers buttons

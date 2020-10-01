@@ -1,6 +1,8 @@
 using NaughtyAttributes;
 using Photon.Pun;
 using Photon.Realtime;
+using Questions;
+using SceneSpecific.Game;
 using SceneSpecific.QuestionEditor;
 using UnityEngine;
 using Utilities;
@@ -55,6 +57,16 @@ namespace SceneSpecific.RoomSetup
         private void OnStartButtonClicked()
         {
             PhotonNetwork.LoadLevel(gameScene);
+
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+
+            photonView.RPC(nameof(SetQuestionPack), RpcTarget.All, questionPackListController.GetSelected);
+        }
+
+        [PunRPC]
+        private void SetQuestionPack(QuestionPack questionPack)
+        {
+            GameData.CurrentQuestionPack = questionPack;
         }
 
         private void OnReadyButtonClicked()
