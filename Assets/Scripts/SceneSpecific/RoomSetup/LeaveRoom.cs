@@ -22,7 +22,7 @@ namespace SceneSpecific.RoomSetup
 
         private void OnDisable()
         {
-            backButton.onClick.AddListener(OnLeaveButtonClicked);
+            backButton.onClick.RemoveListener(OnLeaveButtonClicked);
         }
 
         private void OnLeaveButtonClicked()

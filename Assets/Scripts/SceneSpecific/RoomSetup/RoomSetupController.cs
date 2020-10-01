@@ -44,8 +44,8 @@ namespace SceneSpecific.RoomSetup
         {
             base.OnDisable();
 
-            startButton.onClick.AddListener(OnStartButtonClicked);
-            readyButton.onClick.AddListener(OnReadyButtonClicked);
+            startButton.onClick.RemoveListener(OnStartButtonClicked);
+            readyButton.onClick.RemoveListener(OnReadyButtonClicked);
         }
 
         private void OnStartButtonClicked()
