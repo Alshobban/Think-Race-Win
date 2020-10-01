@@ -40,8 +40,6 @@ namespace Questions
             var data = JsonUtility.ToJson(questionPackPack);
             Debug.Log($"Question packs' saved size is {data.Length * sizeof(char)} bytes");
 
-            Debug.Log(data);
-
             PlayerPrefs.SetString(QuestionPacksPrefsName, data);
         }
     }

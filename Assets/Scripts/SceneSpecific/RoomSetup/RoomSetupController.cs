@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using Photon.Pun;
 using Photon.Realtime;
+using SceneSpecific.QuestionEditor;
 using UnityEngine;
 using Utilities;
 using Button = UnityEngine.UI.Button;
@@ -22,9 +23,12 @@ namespace SceneSpecific.RoomSetup
         [SerializeField]
         private Button readyButton;
 
-        private void Awake()
+        [SerializeField]
+        private QuestionPackListController questionPackListController;
+
+        private void Start()
         {
-            SetupButtons();
+            SetupInterface();
 
             foreach (var player in PhotonNetwork.PlayerList)
             {
@@ -58,10 +62,22 @@ namespace SceneSpecific.RoomSetup
             Debug.Log("does nothing yet, lul");
         }
 
-        private void SetupButtons()
+        private void SetupInterface()
         {
             startButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
             readyButton.gameObject.SetActive(!PhotonNetwork.IsMasterClient);
+
+            // questionPackListController.transform.parent.gameObject.SetActive(PhotonNetwork.IsMasterClient);
+
+            // if (PhotonNetwork.IsMasterClient)
+            {
+                questionPackListController.AddSavedQuestionPacks();
+            }
+        }
+
+        public override void OnMasterClientSwitched(Player newMasterClient)
+        {
+            SetupInterface();
         }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -73,7 +89,7 @@ namespace SceneSpecific.RoomSetup
         {
             playerList.RemoveLine(otherPlayer);
 
-            SetupButtons();
+            SetupInterface();
         }
     }
 }

@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: QuestionPack
   m_EditorClassIdentifier: 
   questionPack:
-    <PackName>k__BackingField: Test Pack!
-    <Questions>k__BackingField:
-    - <QuestionText>k__BackingField: Test
-      <CorrectAnswer>k__BackingField: 1
-      <IncorrectAnswer1>k__BackingField: 2
-      <IncorrectAnswer2>k__BackingField: 3
-      <IncorrectAnswer3>k__BackingField: 4
+    guid: 8854fbfe-627c-4350-8592-5e1cdb5cc989
+    n: Test Pack!
+    q:
+    - q: '?'
+      a: '!'
+      i1: '-'
+      i2: '-'
+      i3: '-'
