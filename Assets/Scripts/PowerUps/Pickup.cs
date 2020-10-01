@@ -32,7 +32,6 @@ public class Pickup : MonoBehaviour
         //deactivating the mesh and collider before destroying the gameobject later!
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
-
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);
     }
