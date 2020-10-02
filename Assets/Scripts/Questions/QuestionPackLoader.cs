@@ -22,14 +22,14 @@ namespace Questions
         private static QuestionPack[] LoadSavedQuestionPacks()
         {
             var loadSavedQuestionPacks = JsonUtility
-                .FromJson<QuestionPackPack>(PlayerPrefs.GetString(QuestionPacksPrefsName)).QuestionPacks;
-            
+                .FromJson<QuestionPackPack>(PlayerPrefs.GetString(QuestionPacksPrefsName));
+
             if (loadSavedQuestionPacks == null)
             {
                 return new QuestionPack[0];
             }
 
-            return loadSavedQuestionPacks;
+            return loadSavedQuestionPacks.QuestionPacks;
         }
 
         private static void SaveQuestionPacks(params QuestionPack[] questionPacks)
