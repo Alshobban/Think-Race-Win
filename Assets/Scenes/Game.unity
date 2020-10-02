@@ -970,6 +970,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PickupPowerUp (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 6718970228631674242, guid: 3bdda4f7ad36edf48ba7527f5c519a00, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bdda4f7ad36edf48ba7527f5c519a00, type: 3}
 --- !u!1 &105927799
@@ -1938,6 +1942,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PickupPowerUp (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 6718970228631674242, guid: 3bdda4f7ad36edf48ba7527f5c519a00, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bdda4f7ad36edf48ba7527f5c519a00, type: 3}
 --- !u!1 &246654132 stripped
@@ -2136,6 +2144,10 @@ PrefabInstance:
     - target: {fileID: 6718970228631674242, guid: 3bdda4f7ad36edf48ba7527f5c519a00, type: 3}
       propertyPath: m_Name
       value: PickupPowerUp (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6718970228631674242, guid: 3bdda4f7ad36edf48ba7527f5c519a00, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bdda4f7ad36edf48ba7527f5c519a00, type: 3}
@@ -2749,6 +2761,10 @@ PrefabInstance:
     - target: {fileID: 6718970228631674242, guid: 3bdda4f7ad36edf48ba7527f5c519a00, type: 3}
       propertyPath: m_Name
       value: PickupPowerUp (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6718970228631674242, guid: 3bdda4f7ad36edf48ba7527f5c519a00, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bdda4f7ad36edf48ba7527f5c519a00, type: 3}
@@ -5226,6 +5242,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PickupPowerUp (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6718970228631674242, guid: 3bdda4f7ad36edf48ba7527f5c519a00, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bdda4f7ad36edf48ba7527f5c519a00, type: 3}
 --- !u!1001 &1088225086
@@ -5367,6 +5387,10 @@ PrefabInstance:
     - target: {fileID: 6718970228631674242, guid: 3bdda4f7ad36edf48ba7527f5c519a00, type: 3}
       propertyPath: m_Name
       value: PickupPowerUp (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6718970228631674242, guid: 3bdda4f7ad36edf48ba7527f5c519a00, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bdda4f7ad36edf48ba7527f5c519a00, type: 3}
@@ -17237,6 +17261,10 @@ PrefabInstance:
     - target: {fileID: 6718970228631674242, guid: 3bdda4f7ad36edf48ba7527f5c519a00, type: 3}
       propertyPath: m_Name
       value: PickupPowerUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6718970228631674242, guid: 3bdda4f7ad36edf48ba7527f5c519a00, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bdda4f7ad36edf48ba7527f5c519a00, type: 3}

@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Pickup : MonoBehaviour
 {
     public GameObject powerupEffectObj;
-    public GameObject pickupPowerupObj;
+   // public GameObject pickupPowerupObj;
     public static bool added;
 
     private void OnTriggerEnter(Collider other)
@@ -23,7 +24,7 @@ public class Pickup : MonoBehaviour
         //instantiate the pickup on the player gameobj!
         if (playerCollider.transform.childCount < 1)
         {
-            GameObject pickupobj = Instantiate(pickupPowerupObj, playerCollider.transform.position, Quaternion.identity);
+            GameObject pickupobj = PhotonNetwork.Instantiate("Bomb", playerCollider.transform.position, Quaternion.identity);
             pickupobj.transform.SetParent(playerCollider.transform);
             //
             added = true;

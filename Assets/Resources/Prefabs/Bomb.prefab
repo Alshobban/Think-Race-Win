@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1846028007163492891}
   - component: {fileID: 5237451627019670492}
   - component: {fileID: 1360028499457411615}
+  - component: {fileID: 6827118971201996007}
   m_Layer: 0
   m_Name: Bomb
   m_TagString: Untagged
@@ -127,3 +128,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupEffectObj: {fileID: 100006, guid: 450dff828997cdd4c864f611df7d62d5, type: 3}
+--- !u!114 &6827118971201996007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209605862810621346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 8313117299188357636, guid: c782622f7338d6046ad55e93c9c08472, type: 3}
+  - {fileID: 9186674401245651424, guid: c782622f7338d6046ad55e93c9c08472, type: 3}
+  - {fileID: 9091719770247151197, guid: c782622f7338d6046ad55e93c9c08472, type: 3}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
