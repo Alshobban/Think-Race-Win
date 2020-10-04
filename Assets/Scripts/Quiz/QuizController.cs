@@ -69,19 +69,6 @@ namespace Quiz
             }
         }
 
-        //fill in the questions list!
-        private void FillInQuestions(List<Question> questions)
-        {
-            questions.Add(new Question("What's the capital of Norway ?", "Oslo", "Trondheim", "Bergen", "Stavanger"));
-            questions.Add(new Question("What's the name of the first-ever videogame?", "Tennis for two",
-                "Tetris (Nintendo)", "Duck Hunt", "Super Mario World"));
-            questions.Add(new Question("What's the best selling video game of all time ?", "Minecraft", "Pac-Man",
-                "Super Mario Bros.", "Grand Theft Auto V"));
-            questions.Add(new Question("Who discovered penicillin ?", "Alexander Fleming", "Louis Pasteur",
-                "Robert Koch",
-                "Joseph Lister"));
-        }
-
         //Fill in buttons text with answers related to the question selected !
         private void FillInAnswers(Question question, GameObject[] answers)
         {
