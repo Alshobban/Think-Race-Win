@@ -1,4 +1,3 @@
-using System.Linq;
 using Questions;
 using UnityEngine;
 
@@ -11,9 +10,6 @@ namespace SceneSpecific.QuestionEditor
 
         private void Awake()
         {
-            QuestionPackLoader.QuestionPacks =
-                QuestionPackLoader.QuestionPacks.Append(questionPack.QuestionPack).ToArray();
-
             QuestionEditorSceneData.Instance.QuestionPackListUiController.ShowAndReload();
         }
     }
