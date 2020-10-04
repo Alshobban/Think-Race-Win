@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questionPack:
     guid: 8854fbfe-627c-4350-8592-5e1cdb5cc989
-    n: Test Pack!
+    n: Default Pack
     q:
     - q: What's the capital of Norway ?
       a: Oslo
