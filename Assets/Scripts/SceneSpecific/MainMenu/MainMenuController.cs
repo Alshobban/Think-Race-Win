@@ -19,7 +19,15 @@ namespace SceneSpecific.MainMenu
         private Button joinRoomButton;
 
         [SerializeField]
+        private Button questionEditorButton;
+
+        [SerializeField]
         private TMP_InputField nameInput;
+
+
+        [Scene]
+        [SerializeField]
+        private string questionEditorScene;
 
         [Scene]
         [SerializeField]
@@ -45,6 +53,7 @@ namespace SceneSpecific.MainMenu
 
             createRoomButton.onClick.AddListener(OnCreateRoomButtonClicked);
             joinRoomButton.onClick.AddListener(OnJoinRoomButtonClicked);
+            questionEditorButton.onClick.AddListener(OnQuestionEditorButtonClicked);
         }
 
         public override void OnDisable()
@@ -53,6 +62,12 @@ namespace SceneSpecific.MainMenu
 
             createRoomButton.onClick.RemoveListener(OnCreateRoomButtonClicked);
             joinRoomButton.onClick.RemoveListener(OnJoinRoomButtonClicked);
+            questionEditorButton.onClick.RemoveListener(OnQuestionEditorButtonClicked);
+        }
+
+        private void OnQuestionEditorButtonClicked()
+        {
+            SceneManager.LoadScene(questionEditorScene);
         }
 
         public override void OnConnectedToMaster()
