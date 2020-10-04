@@ -35,8 +35,7 @@ namespace SceneSpecific.MainMenu
 
         private void Awake()
         {
-            createRoomButton.interactable = false;
-            joinRoomButton.interactable = false;
+            ToggleOnlineButtons(PhotonNetwork.IsConnected);
 
             if (PhotonNetwork.NickName != "")
             {
@@ -72,8 +71,13 @@ namespace SceneSpecific.MainMenu
 
         public override void OnConnectedToMaster()
         {
-            createRoomButton.interactable = true;
-            joinRoomButton.interactable = true;
+            ToggleOnlineButtons(true);
+        }
+
+        private void ToggleOnlineButtons(bool state)
+        {
+            createRoomButton.interactable = state;
+            joinRoomButton.interactable = state;
         }
 
         private bool ValidateAndSetName()
