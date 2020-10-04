@@ -11,7 +11,7 @@ namespace Quiz
         {
             var defaultPack = Resources.Load<QuestionPackScriptableObject>("Questions/QuestionPack").QuestionPack;
 
-            if (!QuestionPackLoader.QuestionPacks.Contains(defaultPack))
+            if (!QuestionPackLoader.QuestionPacks.Any(t => t.Equals(defaultPack)))
             {
                 QuestionPackLoader.QuestionPacks = QuestionPackLoader.QuestionPacks.Append(defaultPack).ToArray();
             }
