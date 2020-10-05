@@ -30,6 +30,7 @@ namespace SceneSpecific.Game
             {
                 Debug.LogWarning("Not connected to the network!");
                 PhotonNetwork.OfflineMode = true;
+                PhotonNetwork.JoinRandomRoom();
                 GameData.CurrentQuestionPack = QuestionPackLoader.QuestionPacks.RandomElement();
 
                 newCar = Instantiate(Resources.Load<GameObject>(localPlayerPrefabLocation + "Offline"),
