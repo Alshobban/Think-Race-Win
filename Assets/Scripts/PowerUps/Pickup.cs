@@ -27,6 +27,8 @@ public class Pickup : MonoBehaviour
         {
             GameObject pickupobj = PhotonNetwork.Instantiate(gameobj, playerCollider.transform.position, Quaternion.identity,0);
             pickupobj.transform.SetParent(playerCollider.transform);
+            //pickupobj.transform.position += playerCollider.transform.position;
+            pickupobj.transform.position+=new Vector3(0f,1.5f,0f);
             //getting  the info about the pickup!
             added = true;
         }

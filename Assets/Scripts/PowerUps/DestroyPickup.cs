@@ -10,10 +10,8 @@ public class DestroyPickup : MonoBehaviour
     {
         if (Pickup.added && Input.GetKey(KeyCode.Q))
         {
-            //Transform bomb = transform.GetChild(transform.childCount - 1).GetChild(0);
             transform.parent = null;
             //GetComponent<Rigidbody>().AddForce(transform.forward * 250);
-            GetComponent<Rigidbody>().transform.rotation = GameObject.FindGameObjectWithTag("Cam").transform.rotation;
             GetComponent<Rigidbody>().AddRelativeForce(transform.forward * 250);
             GetComponent<Rigidbody>().isKinematic = false;
             GetComponent<SphereCollider>().enabled = true;
