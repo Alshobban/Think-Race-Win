@@ -6,7 +6,8 @@ using Photon.Pun;
 public class Pickup : MonoBehaviour
 {
     public GameObject powerupEffectObj;
-   // public GameObject pickupPowerupObj;
+    [SerializeField]
+    private string gameobj = "Bomb";
     public static bool added;
 
     private void OnTriggerEnter(Collider other)
@@ -24,9 +25,9 @@ public class Pickup : MonoBehaviour
         //instantiate the pickup on the player gameobj!
         if (playerCollider.transform.childCount < 1)
         {
-            GameObject pickupobj = PhotonNetwork.Instantiate("Bomb", playerCollider.transform.position, Quaternion.identity);
+            GameObject pickupobj = PhotonNetwork.Instantiate(gameobj, playerCollider.transform.position, Quaternion.identity,0);
             pickupobj.transform.SetParent(playerCollider.transform);
-            //
+            //getting  the info about the pickup!
             added = true;
         }
         

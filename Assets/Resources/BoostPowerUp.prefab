@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 6272693375801095236}
   - component: {fileID: -6231465089174356937}
   - component: {fileID: 1942227582950329324}
+  - component: {fileID: 2427892409120205748}
   m_Layer: 0
   m_Name: BoostPowerUp
   m_TagString: Untagged
@@ -192,6 +193,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupEffectObj: {fileID: 100006, guid: ae7c9521250779a428ff1ed3b23c9596, type: 3}
+--- !u!114 &2427892409120205748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5480292594078340497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &4669248500402529569
 PrefabInstance:
   m_ObjectHideFlags: 0

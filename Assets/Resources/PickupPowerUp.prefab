@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 5061605777897929815}
   - component: {fileID: 7421347988250729605}
   - component: {fileID: 314100821}
+  - component: {fileID: 5361969806846296523}
   m_Layer: 0
   m_Name: PickupPowerUp
   m_TagString: Untagged
@@ -192,7 +193,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupEffectObj: {fileID: 100006, guid: 738d308a031b2664bb0f9ebcfefb2da9, type: 3}
-  pickupPowerupObj: {fileID: 209605862810621346, guid: 67fa860758aaa65439d1e4fe3e6bda80, type: 3}
+  gameobj: Bomb
+--- !u!114 &5361969806846296523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6718970228631674242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &5908716126609735732
 PrefabInstance:
   m_ObjectHideFlags: 0
