@@ -1,5 +1,9 @@
-﻿using Car;
+﻿using System;
+using Car;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using Photon.Pun;
 using Quiz;
 using UnityEngine;
@@ -28,6 +32,17 @@ public class PitstopController : MonoBehaviour
     [SerializeField]
     private Slider timeSlider;
 
+    private TweenerCore<float, float, FloatOptions> _sliderTween;
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            // _sliderTween?.ChangeEndValue(_sliderTween.endValue, quizTime--, );
+        }
+    }
+
     private void Start()
     {
         timeSlider.gameObject.SetActive(false);
@@ -43,28 +58,25 @@ public class PitstopController : MonoBehaviour
         pitstopTrigger.TriggerEntered += OnEnteredPitstop;
     }
 
-    private void OnEnteredPitstop(Collider car)
+    private async void OnEnteredPitstop(Collider car)
     {
-        if (car.CompareTag("Player") && (car.GetComponentInParent<PhotonView>().IsMine || PhotonNetwork.OfflineMode))
-        {
-            DOTween.Sequence()
-                .AppendCallback(() => car.GetComponentInParent<CarMovementView>().SetControls(false))
-                .Append(car.attachedRigidbody.DOMove(pitstopPosition.position, moveToPitstopInterval))
-                .AppendCallback(() =>
-                {
-                    quizController.ShowQuiz();
-                    timeSlider.value = timeSlider.minValue;
-                    timeSlider.gameObject.SetActive(true);
-                })
-                .AppendInterval(quizTime)
-                .Join(timeSlider.DOValue(timeSlider.maxValue, quizTime))
-                .AppendCallback(() =>
-                {
-                    timeSlider.gameObject.SetActive(false);
-                    quizController.HideQuiz();
-                })
-                .Append(car.attachedRigidbody.DOMove(pitstopEndPosition.position, moveToPitstopInterval))
-                .AppendCallback(() => car.GetComponentInParent<CarMovementView>().SetControls(true));
-        }
+        car.GetComponentInParent<CarMovementView>().SetControls(false);
+        car.attachedRigidbody.DOMove(pitstopPosition.position, moveToPitstopInterval);
+
+        await UniTask.Delay(TimeSpan.FromSeconds(moveToPitstopInterval));
+
+        quizController.ShowQuiz();
+        timeSlider.value = timeSlider.minValue;
+        timeSlider.gameObject.SetActive(true);
+
+        _sliderTween = timeSlider.DOValue(timeSlider.maxValue, quizTime).OnComplete(() => AfterQuiz(car));
+    }
+
+    private void AfterQuiz(Collider car)
+    {
+        timeSlider.gameObject.SetActive(false);
+        quizController.HideQuiz();
+        car.attachedRigidbody.DOMove(pitstopEndPosition.position, moveToPitstopInterval);
+        car.GetComponentInParent<CarMovementView>().SetControls(true);
     }
 }

@@ -1,141 +1,147 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using SceneSpecific.Game;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
-using Random = UnityEngine.Random;
+using Utilities;
 
 namespace Quiz
 {
     public class QuizController : MonoBehaviour
     {
-        public GameObject questionText;
-        public GameObject[] answersOptions; //= new GameObject[];
-        public Question questionObj;
-        public Sprite wrongAnswerSprite, normalSprite;
+        [SerializeField]
+        private GameObject questionText;
 
-        private List<Question> _questionList = new List<Question>();
+        [SerializeField]
+        private AnswerView[] answerViews;
 
-        private int _randomIndex;
+        [SerializeField]
+        private float afterClickDelay;
+
+        [SerializeField]
+        private Color normalColor;
+
+        [SerializeField]
+        private Color correctAnswerColor;
+
+        [SerializeField]
+        private Color incorrectAnswerColor;
+
+        private CancellationTokenSource _cancelQuiz;
+
+        private Question _currentQuestion;
+
+        private readonly Queue<Question> _questionList = new Queue<Question>();
+
+        private Question GetNextQuestion()
+        {
+            if (_questionList.Count < 1)
+            {
+                foreach (var question in GameData.CurrentQuestionPack.Questions.Shuffle())
+                {
+                    _questionList.Enqueue(question);
+                }
+            }
+
+            return _questionList.Dequeue();
+        }
 
         public void ShowQuiz()
         {
-            InitQuestions();
-            GetComponent<Canvas>().enabled = true;
+            _cancelQuiz = new CancellationTokenSource();
+
+            SetQuestion(GetNextQuestion());
+            gameObject.SetActive(true);
         }
 
         public void HideQuiz()
         {
-            GetComponent<Canvas>().enabled = false;
+            _cancelQuiz?.Cancel();
+            _cancelQuiz?.Dispose();
+
+            gameObject.SetActive(false);
         }
 
-        private void Start()
+        private void Awake()
         {
             HideQuiz();
         }
 
-        // Start is called before the first frame update
-        private void InitQuestions()
+        private void OnEnable()
         {
-            //fill in the question list!
-            _questionList = GameData.CurrentQuestionPack.Questions.ToList();
-            //Getting all the answers buttons on the scene!
-            answersOptions = GameObject.FindGameObjectsWithTag("AnswerText");
-            //defining the question from the four questions,its answers and re ordering the answers buttons
-            DefiningQuestion();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            //checking for click event!
-            if (CheckingAnswers.clicked)
+            foreach (var answerView in answerViews)
             {
-                //changing the wrong answers colors!
-                ChangingColor(answersOptions);
-
-                //Checking for questions availability!
-                if (_questionList.Count > 1)
-                {
-                    //removing the last question from the list!
-                    SortingQuestions(_questionList);
-                    //defining the question from the four questions,its answers and re ordering the answers buttons
-                    Invoke(nameof(DefiningQuestion), 2f);
-                }
-
-                //re-assigning the static value!
-                CheckingAnswers.clicked = false;
+                answerView.AnswerChosen += OnAnswerChosen;
             }
         }
 
-        //Fill in buttons text with answers related to the question selected !
-        private void FillInAnswers(Question question, GameObject[] answers)
+        private void OnDisable()
         {
-            answers[0].gameObject.GetComponent<TextMeshProUGUI>().text = question.CorrectAnswer;
-            answers[2].gameObject.GetComponent<TextMeshProUGUI>().text = question.IncorrectAnswer2;
-            answers[3].gameObject.GetComponent<TextMeshProUGUI>().text = question.IncorrectAnswer3;
-            answers[1].gameObject.GetComponent<TextMeshProUGUI>().text = question.IncorrectAnswer1;
-        }
-
-        //resorting method !
-        private void ResortingAnswers(GameObject[] answers)
-        {
-            //help variable!
-            //int random2 = Random.Range(0, answers.Length);
-            for (int i = 0; i < 3; i++)
+            foreach (var answerView in answerViews)
             {
-                int random1 = Random.Range(0, answers.Length);
-                var pos = answers[random1].transform.parent.position;
-                answers[random1].transform.parent.position = answers[0].transform.position;
-                answers[0].transform.parent.position = pos;
+                answerView.AnswerChosen -= OnAnswerChosen;
             }
         }
 
-        //resorting questions list by removing the previous question!
-        private void SortingQuestions(List<Question> questions)
+        private async void OnAnswerChosen(string answer)
         {
-            questions.RemoveAt(_randomIndex);
+            foreach (var answerView in answerViews)
+            {
+                answerView.Interactable = false;
+            }
+
+            var chosenAnswer = answerViews.First(t => t.CurrentAnswer == answer);
+
+            if (chosenAnswer.CurrentAnswer == _currentQuestion.CorrectAnswer)
+            {
+                chosenAnswer.SetBackgroundColor(correctAnswerColor);
+            }
+            else
+            {
+                chosenAnswer.SetBackgroundColor(incorrectAnswerColor);
+            }
+
+            await UniTask.Delay(TimeSpan.FromSeconds(afterClickDelay)).WithCancellation(_cancelQuiz.Token)
+                .SuppressCancellationThrow();
+
+            SetQuestion(GetNextQuestion());
         }
 
-        // changing wrong answers color and disabling the button interactiveness!
-        private void ChangingColor(GameObject[] answers)
+        private void SetQuestion(Question question)
         {
-            for (int i = 0; i < answers.Length; i++)
+            // for (int i = 0; i < answers.Length; i++)
+            // {
+            //     answers[i].transform.parent.GetComponent<Button>().interactable = false;
+            //     if (answers[i].gameObject.GetComponent<TextMeshProUGUI>().text != questionObj.CorrectAnswer)
+            //     {
+            //         answers[i].transform.parent.GetComponent<Image>().sprite = wrongAnswerSprite;
+            //     }
+            // }
+            _currentQuestion = question;
+            ResetButtons();
+            questionText.GetComponent<TextMeshProUGUI>().text = question.QuestionText;
+            FillInAnswers(question);
+        }
+
+        private void ResetButtons()
+        {
+            foreach (var answerView in answerViews)
             {
-                answers[i].transform.parent.GetComponent<Button>().interactable = false;
-                if (answers[i].gameObject.GetComponent<TextMeshProUGUI>().text != questionObj.CorrectAnswer)
-                {
-                    
-                    answers[i].transform.parent.GetComponent<Image>().sprite = wrongAnswerSprite;
-                   
-                }
+                answerView.SetBackgroundColor(normalColor);
+                answerView.Interactable = true;
             }
         }
 
-        // reset Colors color and enabling the buttons interactiveness!
-        private void ResetColor(GameObject[] answers)
+        private void FillInAnswers(Question question)
         {
-            for (int i = 0; i < answers.Length; i++)
-            {
-                answers[i].transform.parent.GetComponent<Image>().sprite = normalSprite;
-                answers[i].transform.parent.GetComponent<Button>().interactable = true;
-            }
-        }
-
-        //Methode for defining question and it answers ()!
-        private void DefiningQuestion()
-        {
-            //getting a random question !
-            _randomIndex = Random.Range(0, _questionList.Count);
-            questionObj = _questionList[_randomIndex];
-            questionText.GetComponent<TextMeshProUGUI>().text = questionObj.QuestionText;
-            FillInAnswers(questionObj, answersOptions);
-            //calling resorting Method!
-            ResortingAnswers(answersOptions);
-            //reset Answers color!
-            ResetColor(answersOptions);
+            answerViews.Shuffle();
+            answerViews[0].CurrentAnswer = question.CorrectAnswer;
+            answerViews[1].CurrentAnswer = question.IncorrectAnswer1;
+            answerViews[2].CurrentAnswer = question.IncorrectAnswer2;
+            answerViews[3].CurrentAnswer = question.IncorrectAnswer3;
         }
     }
 }
