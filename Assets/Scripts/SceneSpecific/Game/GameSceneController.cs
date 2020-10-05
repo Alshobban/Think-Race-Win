@@ -1,8 +1,9 @@
 using Cinemachine;
 using desExt.Runtime.References;
-using Network;
 using Photon.Pun;
+using Questions;
 using UnityEngine;
+using Utilities;
 
 namespace SceneSpecific.Game
 {
@@ -28,6 +29,9 @@ namespace SceneSpecific.Game
             else
             {
                 Debug.LogWarning("Not connected to the network!");
+                PhotonNetwork.OfflineMode = true;
+                GameData.CurrentQuestionPack = QuestionPackLoader.QuestionPacks.RandomElement();
+
                 newCar = Instantiate(Resources.Load<GameObject>(localPlayerPrefabLocation + "Offline"),
                     startPosition.position,
                     Quaternion.identity);
