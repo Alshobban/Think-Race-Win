@@ -12,6 +12,8 @@ namespace Quiz
 {
     public class QuizController : MonoBehaviour
     {
+        public event Action<bool> AnsweredCorrectly;
+
         [SerializeField]
         private GameObject questionText;
 
@@ -98,10 +100,12 @@ namespace Quiz
             if (chosenAnswer.CurrentAnswer == _currentQuestion.CorrectAnswer)
             {
                 chosenAnswer.SetBackgroundColor(correctAnswerColor);
+                AnsweredCorrectly?.Invoke(true);
             }
             else
             {
                 chosenAnswer.SetBackgroundColor(incorrectAnswerColor);
+                AnsweredCorrectly?.Invoke(false);
             }
 
             await UniTask.Delay(TimeSpan.FromSeconds(afterClickDelay)).WithCancellation(_cancelQuiz.Token)
