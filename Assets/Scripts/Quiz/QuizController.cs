@@ -14,6 +14,7 @@ namespace Quiz
         public GameObject questionText;
         public GameObject[] answersOptions; //= new GameObject[];
         public Question questionObj;
+        public Sprite wrongAnswerSprite, normalSprite;
 
         private List<Question> _questionList = new List<Question>();
 
@@ -103,10 +104,13 @@ namespace Quiz
         {
             for (int i = 0; i < answers.Length; i++)
             {
+                answers[i].transform.parent.GetComponent<Button>().interactable = false;
                 if (answers[i].gameObject.GetComponent<TextMeshProUGUI>().text != questionObj.CorrectAnswer)
                 {
-                    answers[i].transform.parent.GetComponent<Image>().color = Color.red;
-                    answers[i].transform.parent.GetComponent<Button>().enabled = false;
+                    // answers[i].transform.parent.GetComponent<Image>().color = Color.red;
+                    answers[i].transform.parent.GetComponent<Image>().sprite = wrongAnswerSprite;
+                    //answers[i].transform.parent.GetComponent<Button>().enabled = false;
+                   // answers[i].transform.parent.GetComponent<Button>().interactable = false;
                 }
             }
         }
@@ -116,8 +120,10 @@ namespace Quiz
         {
             for (int i = 0; i < answers.Length; i++)
             {
-                answers[i].transform.parent.GetComponent<Image>().color = Color.white;
-                answers[i].transform.parent.GetComponent<Button>().enabled = true;
+                // answers[i].transform.parent.GetComponent<Image>().color = Color.white;
+                answers[i].transform.parent.GetComponent<Image>().sprite = normalSprite;
+                // answers[i].transform.parent.GetComponent<Button>().enabled = true;
+                answers[i].transform.parent.GetComponent<Button>().interactable = true;
             }
         }
 
