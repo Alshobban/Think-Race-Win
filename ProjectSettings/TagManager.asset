@@ -6,6 +6,7 @@ TagManager:
   tags:
   - AnswerText
   - plane
+  - Cam
   layers:
   - Default
   - TransparentFX
