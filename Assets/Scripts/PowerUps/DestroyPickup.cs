@@ -12,7 +12,8 @@ public class DestroyPickup : MonoBehaviour
         {
             //Transform bomb = transform.GetChild(transform.childCount - 1).GetChild(0);
             transform.parent = null;
-            GetComponent<Rigidbody>().AddForce(transform.forward * 250);
+            //GetComponent<Rigidbody>().AddForce(transform.forward * 250);
+            GetComponent<Rigidbody>().AddRelativeForce(transform.forward * 250);
             GetComponent<Rigidbody>().isKinematic = false;
             GetComponent<SphereCollider>().enabled = true;
             //
