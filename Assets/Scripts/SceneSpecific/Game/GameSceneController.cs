@@ -27,7 +27,8 @@ namespace SceneSpecific.Game
 
             var startPosition =
                 GameSceneData.Instance.GetPositionByNumber(
-                    GameData.QualifiedPlayers.IndexOf(PhotonNetwork.LocalPlayer));
+                    GameData.QualifiedPlayers.IndexOf(
+                        GameData.QualifiedPlayers.Find(t => t.Equals(PhotonNetwork.LocalPlayer))));
             SpawnCar(Random.Range(0, 20), startPosition.position, startPosition.rotation);
         }
 
