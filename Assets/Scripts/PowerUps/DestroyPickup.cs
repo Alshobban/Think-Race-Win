@@ -14,7 +14,7 @@ public class DestroyPickup : MonoBehaviour
     private void Start()
     {
         GetComponent<Rigidbody>().useGravity = false;
-        GetComponent<Rigidbody>().detectCollisions = false;
+        //GetComponent<Rigidbody>().detectCollisions = false;
         added = true;
     }
 
@@ -30,7 +30,7 @@ public class DestroyPickup : MonoBehaviour
                 GetComponent<Rigidbody>().useGravity = true;
                 GetComponent<Rigidbody>().detectCollisions = true;
                 GetComponent<Rigidbody>().isKinematic = false;
-                GetComponent<Rigidbody>().AddForce(transform.forward * 350f, ForceMode.Impulse);
+                GetComponent<Rigidbody>().AddForce(transform.forward * 200f * Time.deltaTime, ForceMode.Impulse);
                 
                 Pickup.added = false;
             }
