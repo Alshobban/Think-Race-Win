@@ -9,7 +9,7 @@ using Utilities;
 
 namespace SceneSpecific.Game
 {
-    public class GameSceneController : MonoBehaviour
+    public class GameSceneController : MonoBehaviourPunCallbacks
     {
         [SerializeField]
         private StringReference localPlayerPrefabLocation;
@@ -25,11 +25,17 @@ namespace SceneSpecific.Game
                 Debug.LogWarning("Not connected to the network!");
             }
 
-            var startPosition =
-                GameSceneData.Instance.GetPositionByNumber(
-                    GameData.QualifiedPlayers.IndexOf(
-                        GameData.QualifiedPlayers.Find(t => t.Equals(PhotonNetwork.LocalPlayer))));
-            SpawnCar(Random.Range(0, 20), startPosition.position, startPosition.rotation);
+            // var startPosition =
+            // GameSceneData.Instance.GetPositionByNumber(
+            // GameData.QualifiedPlayers.IndexOf(
+            // GameData.QualifiedPlayers.Find(t => t.Equals(PhotonNetwork.LocalPlayer))));
+
+            foreach (var player in GameData.QualifiedPlayers)
+            {
+                var startPosition = GameSceneData.Instance.GetVacantStartPosition();
+                photonView.RPC(nameof(SpawnCar), player, Random.Range(0, 20), startPosition.position,
+                    startPosition.rotation);
+            }
         }
 
         [PunRPC]
