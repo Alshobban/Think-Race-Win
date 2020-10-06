@@ -1,27 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ReplayLevel : MonoBehaviour
 {
     public GameObject canvas;
-    private int lapCounter=0;
+    private int _lapCounter;
 
     private void OnTriggerEnter(Collider other)
     {
-        lapCounter++;
-        if (lapCounter > 3)
+        _lapCounter++;
+        if (_lapCounter > 3)
         {
-            Invoke("EnableCanvas", 1f);
+            Invoke(nameof(EnableCanvas), 1f);
             other.GetComponent<Car.CarMovement>().enabled = false;
         }
-        
     }
 
     public void Reset()
     {
-        lapCounter = 0;
+        _lapCounter = 0;
         canvas.SetActive(false);
         SceneManager.LoadScene("Main");
     }
