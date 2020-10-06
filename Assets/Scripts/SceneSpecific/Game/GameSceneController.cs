@@ -1,4 +1,3 @@
-using Cinemachine;
 using desExt.Runtime.References;
 using Photon.Pun;
 using Questions;
@@ -10,39 +9,40 @@ namespace SceneSpecific.Game
     public class GameSceneController : MonoBehaviour
     {
         [SerializeField]
-        private Transform startPosition;
-
-        [SerializeField]
         private StringReference localPlayerPrefabLocation;
-
-        [SerializeField]
-        private CinemachineVirtualCamera cinemachineVirtualCamera;
 
         private void Awake()
         {
-            GameObject newCar;
-            if (PhotonNetwork.IsConnected)
+            if (!PhotonNetwork.IsConnected)
             {
-                newCar = PhotonNetwork.Instantiate(localPlayerPrefabLocation, startPosition.position,
-                    Quaternion.identity);
-            }
-            else
-            {
-                Debug.LogWarning("Not connected to the network!");
                 PhotonNetwork.OfflineMode = true;
                 PhotonNetwork.JoinRandomRoom();
                 GameData.CurrentQuestionPack = QuestionPackLoader.QuestionPacks.RandomElement();
-
-                newCar = Instantiate(Resources.Load<GameObject>(localPlayerPrefabLocation + "Offline"),
-                    startPosition.position,
-                    Quaternion.identity);
+                Debug.LogWarning("Not connected to the network!");
             }
 
-            newCar.transform.GetChild(0).GetChild(0).Rotate(0f, startPosition.rotation.eulerAngles.y, 0f);
+            foreach (var player in PhotonNetwork.CurrentRoom.Players.Keys)
+            {
+                var startPosition = GameSceneData.Instance.GetVacantStartPosition();
 
-            var anchor = newCar.transform.GetChild(0).GetChild(0);
-            cinemachineVirtualCamera.Follow = anchor;
-            cinemachineVirtualCamera.LookAt = anchor;
+                var playersCar = PhotonNetwork.Instantiate(localPlayerPrefabLocation, startPosition.position,
+                    Quaternion.identity);
+                playersCar.transform.GetChild(0).GetChild(0).Rotate(0f, startPosition.rotation.eulerAngles.y, 0f);
+
+                var newPhotonView = playersCar.GetComponent<PhotonView>();
+                newPhotonView.TransferOwnership(player);
+            }
         }
+
+        // private void Update()
+        // {
+        //     if (Input.GetKeyUp(KeyCode.Space))
+        //     {
+        //         var startPosition = GameSceneData.Instance.GetVacantStartPosition();
+        //
+        //         var playersCar = PhotonNetwork.Instantiate(localPlayerPrefabLocation, startPosition.position,
+        //             Quaternion.identity);
+        //     }
+        // }
     }
 }
