@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/QuestionEditor.unity
     guid: 00cd107c1ca2de249931d611abddfd10
+  - enabled: 1
+    path: Assets/Scenes/Qualifiers.unity
+    guid: bd90d6701d34f82439652dc66817a422
   m_configObjects: {}

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using SceneSpecific.Game;
 using UnityEngine;
 using TMPro;
 using Utilities;
@@ -33,30 +31,22 @@ namespace Quiz
         private Color incorrectAnswerColor;
 
         private CancellationTokenSource _cancelQuiz;
-
         private Question _currentQuestion;
+        private bool _autoSetNextQuestion;
 
-        private readonly Queue<Question> _questionList = new Queue<Question>();
-
-        private Question GetNextQuestion()
+        public void ShowQuiz(Question nextQuestion, bool autoSetNextQuestion = true)
         {
-            if (_questionList.Count < 1)
-            {
-                foreach (var question in GameData.CurrentQuestionPack.Questions.Shuffle())
-                {
-                    _questionList.Enqueue(question);
-                }
-            }
-
-            return _questionList.Dequeue();
-        }
-
-        public void ShowQuiz()
-        {
+            _autoSetNextQuestion = autoSetNextQuestion;
             _cancelQuiz = new CancellationTokenSource();
 
-            SetQuestion(GetNextQuestion());
+            SetQuestion(nextQuestion);
             gameObject.SetActive(true);
+            Debug.Log("showing");
+        }
+
+        public void ShowQuiz(bool autoSetNextQuestion = true)
+        {
+            ShowQuiz(GameData.GetNextQuestion(), autoSetNextQuestion);
         }
 
         public void HideQuiz()
@@ -65,6 +55,7 @@ namespace Quiz
             _cancelQuiz?.Dispose();
 
             gameObject.SetActive(false);
+            Debug.Log("hiding");
         }
 
         private void Awake()
@@ -108,10 +99,13 @@ namespace Quiz
                 AnsweredCorrectly?.Invoke(false);
             }
 
-            await UniTask.Delay(TimeSpan.FromSeconds(afterClickDelay)).WithCancellation(_cancelQuiz.Token)
-                .SuppressCancellationThrow();
+            if (_autoSetNextQuestion)
+            {
+                await UniTask.Delay(TimeSpan.FromSeconds(afterClickDelay)).WithCancellation(_cancelQuiz.Token)
+                    .SuppressCancellationThrow();
 
-            SetQuestion(GetNextQuestion());
+                SetQuestion(GameData.GetNextQuestion());
+            }
         }
 
         private void SetQuestion(Question question)

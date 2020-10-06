@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using desExt.Runtime.References;
 using Photon.Pun;
+using Photon.Realtime;
 using Questions;
 using UnityEngine;
 using Utilities;
@@ -18,19 +20,23 @@ namespace SceneSpecific.Game
                 PhotonNetwork.OfflineMode = true;
                 PhotonNetwork.JoinRandomRoom();
                 GameData.CurrentQuestionPack = QuestionPackLoader.QuestionPacks.RandomElement();
+                GameData.QualifiedPlayers = new List<Player> {PhotonNetwork.LocalPlayer};
                 Debug.LogWarning("Not connected to the network!");
             }
 
-            foreach (var player in PhotonNetwork.CurrentRoom.Players.Keys)
+            if (PhotonNetwork.IsMasterClient)
             {
-                var startPosition = GameSceneData.Instance.GetVacantStartPosition();
+                foreach (var player in GameData.QualifiedPlayers)
+                {
+                    var startPosition = GameSceneData.Instance.GetVacantStartPosition();
 
-                var playersCar = PhotonNetwork.Instantiate(localPlayerPrefabLocation, startPosition.position,
-                    Quaternion.identity);
-                playersCar.transform.GetChild(0).GetChild(0).Rotate(0f, startPosition.rotation.eulerAngles.y, 0f);
+                    var playersCar = PhotonNetwork.Instantiate(localPlayerPrefabLocation, startPosition.position,
+                        Quaternion.identity);
+                    playersCar.transform.GetChild(0).GetChild(0).Rotate(0f, startPosition.rotation.eulerAngles.y, 0f);
 
-                var newPhotonView = playersCar.GetComponent<PhotonView>();
-                newPhotonView.TransferOwnership(player);
+                    var newPhotonView = playersCar.GetComponent<PhotonView>();
+                    newPhotonView.TransferOwnership(player);
+                }
             }
         }
 

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Text;
+using ExitGames.Client.Photon;
+using Questions;
 using UnityEngine;
 
 namespace Quiz
@@ -46,6 +49,24 @@ namespace Quiz
             return QuestionText == other.QuestionText && CorrectAnswer == other.CorrectAnswer &&
                    IncorrectAnswer1 == other.IncorrectAnswer1 && IncorrectAnswer2 == other.IncorrectAnswer2 &&
                    IncorrectAnswer3 == other.IncorrectAnswer3;
+        }
+
+        public static byte[] Serialize(object questionPack)
+        {
+            var q = (Question) questionPack;
+
+            return Encoding.ASCII.GetBytes(JsonUtility.ToJson(q));
+        }
+
+        public static object Deserialize(byte[] questionPack)
+        {
+            return JsonUtility.FromJson<Question>(Encoding.ASCII.GetString(questionPack));
+        }
+
+        [RuntimeInitializeOnLoadMethod]
+        private static void RegisterSerialization()
+        {
+            PhotonPeer.RegisterType(typeof(Question), (byte) 'x', Serialize, Deserialize);
         }
     }
 }

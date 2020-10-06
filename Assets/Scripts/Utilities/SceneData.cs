@@ -22,7 +22,7 @@ namespace Utilities
                     }
                     else if (foundInstances.Length == 0)
                     {
-                        throw new Exception("Can't find an instance of SceneData!");
+                        throw new Exception($"Can't find an instance of {typeof(T).Name}!");
                     }
                     else
                     {

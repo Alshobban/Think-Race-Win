@@ -654,7 +654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 463d9f1caa35424e889fb0bc8516acc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameScene: Game
+  gameScene: Qualifiers
   playerList: {fileID: 1357820328}
   startButton: {fileID: 13814252}
   readyButton: {fileID: 1353339022}
@@ -2575,7 +2575,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 107120361}
   m_HandleRect: {fileID: 107120360}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
