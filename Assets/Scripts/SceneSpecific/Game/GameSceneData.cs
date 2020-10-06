@@ -12,7 +12,7 @@ namespace SceneSpecific.Game
         [SerializeField]
         private Transform[] startPositions;
 
-        private int _startPositionIndex = 0;
+        private int _startPositionIndex;
 
         public Transform GetVacantStartPosition()
         {

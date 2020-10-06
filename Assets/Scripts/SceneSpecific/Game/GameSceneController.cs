@@ -34,15 +34,17 @@ namespace SceneSpecific.Game
             }
         }
 
-        // private void Update()
-        // {
-        //     if (Input.GetKeyUp(KeyCode.Space))
-        //     {
-        //         var startPosition = GameSceneData.Instance.GetVacantStartPosition();
-        //
-        //         var playersCar = PhotonNetwork.Instantiate(localPlayerPrefabLocation, startPosition.position,
-        //             Quaternion.identity);
-        //     }
-        // }
+#if UNITY_EDITOR
+        private void Update()
+        {
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                var startPosition = GameSceneData.Instance.GetVacantStartPosition();
+
+                var playersCar = PhotonNetwork.Instantiate(localPlayerPrefabLocation, startPosition.position,
+                    Quaternion.identity);
+            }
+        }
+#endif
     }
 }
