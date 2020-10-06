@@ -5,7 +5,6 @@ using Questions;
 using SceneSpecific.Game;
 using SceneSpecific.QuestionEditor;
 using UnityEngine;
-using Utilities;
 using Button = UnityEngine.UI.Button;
 
 namespace SceneSpecific.RoomSetup
