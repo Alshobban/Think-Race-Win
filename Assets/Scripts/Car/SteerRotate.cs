@@ -7,9 +7,6 @@ namespace Car
         [SerializeField]
         private float rotationSpeed;
 
-        [Range(-1f, 1f)]
-        public float f;
-
         private float _horizontalInput;
 
         public float RotationSpeed
@@ -21,7 +18,6 @@ namespace Car
         private void Update()
         {
             _horizontalInput = Input.GetAxis("Horizontal");
-            f = _horizontalInput;
         }
 
         private void FixedUpdate()
