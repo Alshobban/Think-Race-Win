@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b0df645aa31429db7a4f4680f121b19, type: 3}
+  m_Name: The world first NewsPaper publishers
+  m_EditorClassIdentifier: 
+  questionPack:
+    guid: 123
+    n: The world first NewsPaper publishers
+    q:
+    - q: 'What was the sort of mass media used here ?  '
+      a: Newspapers
+      i1: Radio
+      i2: Television
+      i3: Magazines
+    - q: What was it called ?
+      a: Acta Diurna
+      i1: Acta Roma
+      i2: Nouvelles Diurna
+      i3: Romiuna
+    - q: What does the name mean ?
+      a: Daily Events
+      i1: News
+      i2: Yearly Events
+      i3: Weekly news
+    - q: What historic periods are we dealing with ?
+      a: 500-1600
+      i1: 350-450
+      i2: 1750-1795
+      i3: 1700-1740
