@@ -1,19 +1,20 @@
+using Network;
 using Photon.Pun;
+using Photon.Realtime;
 using SceneSpecific.Game;
 
 namespace Car
 {
-    public class SetupCar : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
+    public class SetupCar : MonoBehaviourPunCallbacks, IOnPhotonViewOwnerChange
     {
-        public void OnPhotonInstantiate(PhotonMessageInfo info)
+        public void OnOwnerChange(Player newOwner, Player previousOwner)
         {
-            if (photonView.IsMine)
+            if (newOwner.Equals(PhotonNetwork.LocalPlayer))
             {
-                var newCar = info.photonView.gameObject;
-
-                var anchor = newCar.transform.GetChild(0).GetChild(0);
+                var anchor = transform.GetChild(0).GetChild(0);
                 GameSceneData.Instance.CinemachineVirtualCamera.Follow = anchor;
                 GameSceneData.Instance.CinemachineVirtualCamera.LookAt = anchor;
+                GetComponent<NetworkScriptsIgnore>().IgnoreScripts();
             }
 
             Destroy(this);

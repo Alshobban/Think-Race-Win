@@ -9,7 +9,7 @@ namespace Network
         [SerializeField]
         private MonoBehaviour[] scriptsToIgnore;
 
-        private void Awake()
+        public void IgnoreScripts()
         {
             var photonView = GetComponent<PhotonView>();
             foreach (var script in scriptsToIgnore)
