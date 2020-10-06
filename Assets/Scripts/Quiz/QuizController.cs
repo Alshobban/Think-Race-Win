@@ -53,6 +53,7 @@ namespace Quiz
         {
             _cancelQuiz?.Cancel();
             _cancelQuiz?.Dispose();
+            _cancelQuiz = null;
 
             gameObject.SetActive(false);
             Debug.Log("hiding");
