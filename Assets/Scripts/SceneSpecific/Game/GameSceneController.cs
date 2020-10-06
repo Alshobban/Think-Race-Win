@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Car;
 using desExt.Runtime.References;
 using Photon.Pun;
 using Photon.Realtime;
@@ -30,14 +31,18 @@ namespace SceneSpecific.Game
                 {
                     var startPosition = GameSceneData.Instance.GetVacantStartPosition();
 
-                    var playersCar = PhotonNetwork.Instantiate(localPlayerPrefabLocation, startPosition.position,
-                        Quaternion.identity);
-                    playersCar.transform.GetChild(0).GetChild(0).Rotate(0f, startPosition.rotation.eulerAngles.y, 0f);
-
-                    var newPhotonView = playersCar.GetComponent<PhotonView>();
-                    newPhotonView.TransferOwnership(player);
+                    PhotonView.Get(this).RPC("SpawnCar", player, Random.Range(0, 20), startPosition.position,
+                        startPosition.rotation);
                 }
             }
+        }
+
+        [PunRPC]
+        private void SpawnCar(int prefabNumber, Vector3 position, Quaternion rotation)
+        {
+            var newCar = PhotonNetwork.Instantiate(localPlayerPrefabLocation, position, Quaternion.identity);
+            newCar.GetComponent<CarSpawner>()?.SpawnCar(prefabNumber);
+            newCar.transform.GetChild(0).GetChild(0).Rotate(0f, rotation.eulerAngles.y, 0f);
         }
 
 #if UNITY_EDITOR

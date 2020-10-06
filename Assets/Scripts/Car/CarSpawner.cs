@@ -12,10 +12,18 @@ namespace Car
         [SerializeField]
         private Transform modelParent;
 
+        public void SpawnCar(int number)
+        {
+            if (number >= 0 && number < carPrefabs.Count)
+            {
+                Instantiate(carPrefabs[number], Vector3.zero, Quaternion.identity).transform
+                    .SetParent(modelParent, false);
+            }
+        }
+
         public void SpawnRandomCar()
         {
-            Instantiate(carPrefabs[Random.Range(0, carPrefabs.Count)], Vector3.zero, Quaternion.identity).transform
-                .SetParent(modelParent, false);
+            SpawnCar(Random.Range(0, carPrefabs.Count));
         }
     }
 }
