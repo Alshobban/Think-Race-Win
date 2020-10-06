@@ -1,120 +1,122 @@
 ﻿using System;
+using System.Threading;
 using Car;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
-using Quiz;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PitstopController : MonoBehaviour
+namespace Quiz
 {
-    [SerializeField]
-    private QuizController quizController;
-
-    [SerializeField]
-    private TriggerCallbacks pitstopTrigger;
-
-    [SerializeField]
-    private Transform pitstopPosition;
-
-    [SerializeField]
-    private Transform pitstopEndPosition;
-
-    [SerializeField]
-    private float moveToPitstopInterval = 2f;
-
-    [SerializeField]
-    private float quizTime = 15f;
-
-    [SerializeField]
-    private Slider timeSlider;
-
-    private TweenerCore<float, float, FloatOptions> _sliderTween;
-    private bool _inProgress;
-    private float _finalQuizTime;
-
-    private void Update()
+    public class PitstopController : MonoBehaviour
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            quizTime--;
-        }
+        [SerializeField]
+        private QuizController quizController;
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            quizTime++;
-        }
-    }
+        [SerializeField]
+        private TriggerCallbacks pitstopTrigger;
 
-    private void FixedUpdate()
-    {
-        if (_inProgress)
-        {
-            var sliderStepPerFixedUpdate =
-                (timeSlider.maxValue - timeSlider.minValue) * Time.fixedDeltaTime / _finalQuizTime;
-            timeSlider.value += sliderStepPerFixedUpdate;
+        [SerializeField]
+        private Transform pitstopPosition;
 
-            if (timeSlider.value >= timeSlider.maxValue)
+        [SerializeField]
+        private Transform pitstopEndPosition;
+
+        [SerializeField]
+        private float moveToPitstopInterval = 2f;
+
+        [SerializeField]
+        private float quizTime = 15f;
+
+        [SerializeField]
+        private Slider timeSlider;
+
+        private TweenerCore<float, float, FloatOptions> _sliderTween;
+        private bool _inProgress;
+        private float _finalQuizTime;
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                _inProgress = false;
+                quizTime--;
+            }
+
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                quizTime++;
             }
         }
-    }
 
-    private void Start()
-    {
-        timeSlider.gameObject.SetActive(false);
-    }
-
-    private void OnEnable()
-    {
-        pitstopTrigger.TriggerEntered += OnEnteredPitstop;
-    }
-
-    private void OnDisable()
-    {
-        pitstopTrigger.TriggerEntered -= OnEnteredPitstop;
-    }
-
-    private void OnAnsweredQuestion(bool correct)
-    {
-        if (correct)
+        private void FixedUpdate()
         {
-            _finalQuizTime -= 5f;
+            if (_inProgress)
+            {
+                var sliderStepPerFixedUpdate =
+                    (timeSlider.maxValue - timeSlider.minValue) * Time.fixedDeltaTime / _finalQuizTime;
+                timeSlider.value += sliderStepPerFixedUpdate;
+
+                if (timeSlider.value >= timeSlider.maxValue)
+                {
+                    _inProgress = false;
+                }
+            }
         }
-        else
+
+        private void Start()
         {
-            _finalQuizTime += 5f;
+            timeSlider.gameObject.SetActive(false);
         }
-    }
 
-    private async void OnEnteredPitstop(Collider car)
-    {
-        car.GetComponentInParent<CarMovementView>().SetControls(false);
-        car.attachedRigidbody.DOMove(pitstopPosition.position, moveToPitstopInterval);
+        private void OnEnable()
+        {
+            pitstopTrigger.TriggerEntered += OnEnteredPitstop;
+        }
 
-        await UniTask.Delay(TimeSpan.FromSeconds(moveToPitstopInterval));
+        private void OnDisable()
+        {
+            pitstopTrigger.TriggerEntered -= OnEnteredPitstop;
+        }
 
-        quizController.ShowQuiz();
-        timeSlider.value = timeSlider.minValue;
-        timeSlider.gameObject.SetActive(true);
+        private void OnAnsweredQuestion(bool correct)
+        {
+            if (correct)
+            {
+                _finalQuizTime -= 5f;
+            }
+            else
+            {
+                _finalQuizTime += 5f;
+            }
+        }
 
-        _finalQuizTime = quizTime;
-        quizController.AnsweredCorrectly += OnAnsweredQuestion;
+        private async void OnEnteredPitstop(Collider car)
+        {
+            car.GetComponentInParent<CarMovementView>().SetControls(false);
+            car.attachedRigidbody.DOMove(pitstopPosition.position, moveToPitstopInterval);
 
-        _inProgress = true;
-        await UniTask.WaitUntil(() => _inProgress == false);
-        AfterQuiz(car);
-    }
+            await UniTask.Delay(TimeSpan.FromSeconds(moveToPitstopInterval));
 
-    private void AfterQuiz(Collider car)
-    {
-        quizController.AnsweredCorrectly -= OnAnsweredQuestion;
-        timeSlider.gameObject.SetActive(false);
-        quizController.HideQuiz();
-        car.attachedRigidbody.DOMove(pitstopEndPosition.position, moveToPitstopInterval);
-        car.GetComponentInParent<CarMovementView>().SetControls(true);
+            quizController.ShowQuiz();
+            timeSlider.value = timeSlider.minValue;
+            timeSlider.gameObject.SetActive(true);
+
+            _finalQuizTime = quizTime;
+            quizController.AnsweredCorrectly += OnAnsweredQuestion;
+
+            _inProgress = true;
+            await UniTask.WaitUntil(() => _inProgress == false).WithCancellation(this.GetCancellationTokenOnDestroy())
+                .SuppressCancellationThrow();
+
+            quizController.AnsweredCorrectly -= OnAnsweredQuestion;
+            timeSlider.gameObject.SetActive(false);
+            quizController.HideQuiz();
+            car.attachedRigidbody.DOMove(pitstopEndPosition.position, moveToPitstopInterval);
+            await UniTask.Delay(TimeSpan.FromSeconds(moveToPitstopInterval));
+
+            car.GetComponentInParent<CarMovementView>().SetControls(true);
+        }
     }
 }
