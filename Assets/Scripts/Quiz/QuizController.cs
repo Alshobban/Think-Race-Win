@@ -41,7 +41,6 @@ namespace Quiz
 
             SetQuestion(nextQuestion);
             gameObject.SetActive(true);
-            Debug.Log("showing");
         }
 
         public void ShowQuiz(bool autoSetNextQuestion = true)
@@ -56,7 +55,6 @@ namespace Quiz
             _cancelQuiz = null;
 
             gameObject.SetActive(false);
-            Debug.Log("hiding");
         }
 
         private void Awake()

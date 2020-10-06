@@ -25,16 +25,10 @@ namespace SceneSpecific.Game
                 Debug.LogWarning("Not connected to the network!");
             }
 
-            if (PhotonNetwork.IsMasterClient)
-            {
-                foreach (var player in GameData.QualifiedPlayers)
-                {
-                    var startPosition = GameSceneData.Instance.GetVacantStartPosition();
-
-                    PhotonView.Get(this).RPC("SpawnCar", player, Random.Range(0, 20), startPosition.position,
-                        startPosition.rotation);
-                }
-            }
+            var startPosition =
+                GameSceneData.Instance.GetPositionByNumber(
+                    GameData.QualifiedPlayers.IndexOf(PhotonNetwork.LocalPlayer));
+            SpawnCar(Random.Range(0, 20), startPosition.position, startPosition.rotation);
         }
 
         [PunRPC]

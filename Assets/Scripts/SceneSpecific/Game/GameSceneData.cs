@@ -18,5 +18,10 @@ namespace SceneSpecific.Game
         {
             return startPositions[_startPositionIndex++ % startPositions.Length];
         }
+
+        public Transform GetPositionByNumber(int number)
+        {
+            return startPositions[number % startPositions.Length];
+        }
     }
 }
