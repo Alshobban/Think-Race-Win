@@ -6,6 +6,8 @@ using Utilities;
 
 public static class GameData
 {
+    public static int QualifiedPlace { get; set; }
+
     public static List<Player> QualifiedPlayers { get; set; }
     public static QuestionPack CurrentQuestionPack { get; set; }
 

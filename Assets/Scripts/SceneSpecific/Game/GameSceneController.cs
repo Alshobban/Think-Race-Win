@@ -25,17 +25,18 @@ namespace SceneSpecific.Game
                 Debug.LogWarning("Not connected to the network!");
             }
 
-            // var startPosition =
-            // GameSceneData.Instance.GetPositionByNumber(
-            // GameData.QualifiedPlayers.IndexOf(
-            // GameData.QualifiedPlayers.Find(t => t.Equals(PhotonNetwork.LocalPlayer))));
+            var startPosition = GameSceneData.Instance.GetPositionByNumber(GameData.QualifiedPlace);
 
-            foreach (var player in GameData.QualifiedPlayers)
-            {
-                var startPosition = GameSceneData.Instance.GetVacantStartPosition();
-                photonView.RPC(nameof(SpawnCar), player, Random.Range(0, 20), startPosition.position,
-                    startPosition.rotation);
-            }
+            SpawnCar(Random.Range(0, 20), startPosition.position, startPosition.rotation);
+            // if (PhotonNetwork.IsMasterClient)
+            // {
+            //     foreach (var player in GameData.QualifiedPlayers)
+            //     {
+            //         var startPosition = GameSceneData.Instance.GetVacantStartPosition();
+            //         photonView.RPC(nameof(SpawnCar), player, Random.Range(0, 20), startPosition.position,
+            //             startPosition.rotation);
+            //     }
+            // }
         }
 
         [PunRPC]
@@ -51,10 +52,7 @@ namespace SceneSpecific.Game
         {
             if (Input.GetKeyUp(KeyCode.Space))
             {
-                var startPosition = GameSceneData.Instance.GetVacantStartPosition();
-
-                var playersCar = PhotonNetwork.Instantiate(localPlayerPrefabLocation, startPosition.position,
-                    Quaternion.identity);
+                Awake();
             }
         }
 #endif

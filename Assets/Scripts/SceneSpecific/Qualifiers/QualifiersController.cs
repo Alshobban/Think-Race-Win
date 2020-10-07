@@ -7,6 +7,7 @@ using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using Quiz;
+using SceneSpecific.Game;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -99,8 +100,19 @@ namespace SceneSpecific.Qualifiers
             GameData.QualifiedPlayers = _playersScores.OrderByDescending(t => t.Value)
                 .Select(t => PhotonNetwork.CurrentRoom.GetPlayer(t.Key)).ToList();
 
+            foreach (var player in GameData.QualifiedPlayers)
+            {
+                photonView.RPC(nameof(SetQualifiedPlace), player, GameData.QualifiedPlayers.IndexOf(player));
+            }
+
             Finished?.Invoke();
             _qualifiersRunning = false;
+        }
+
+        [PunRPC]
+        private void SetQualifiedPlace(int place)
+        {
+            GameData.QualifiedPlace = place;
         }
 
         [PunRPC]
