@@ -27,11 +27,12 @@ public class DestroyPickup : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 //transform.SetParent(null);
+                
+                GetComponent<Rigidbody>().AddForce(transform.forward * 500f * Time.deltaTime, ForceMode.Impulse);
                 GetComponent<Rigidbody>().useGravity = true;
                 GetComponent<Rigidbody>().detectCollisions = true;
                 GetComponent<Rigidbody>().isKinematic = false;
-                GetComponent<Rigidbody>().AddForce(transform.forward * 1000f * Time.deltaTime, ForceMode.Impulse);
-                
+
                 Pickup.added = false;
             }
         }
