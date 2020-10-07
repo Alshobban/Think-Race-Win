@@ -21,7 +21,7 @@ public class Powerup : MonoBehaviour
         //speeding up the car ?!
         Car.CarMovement carmov = playerCollider.GetComponentInChildren<Car.CarMovement>();
         float accelerationInitialValue = 90;
-        float accelerationnewValue = Random.Range(30, 40);
+        float accelerationnewValue = Random.Range(20, 25);
         carmov.Acceleration += accelerationnewValue;
 
         GetComponent<MeshRenderer>().enabled = false;
