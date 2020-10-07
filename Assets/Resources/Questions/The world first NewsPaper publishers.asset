@@ -21,12 +21,12 @@ MonoBehaviour:
       i1: Radio
       i2: Television
       i3: Magazines
-    - q: What was it called ?
+    - q: What was the name of the mass medi type used during that period ? ?
       a: Acta Diurna
       i1: Acta Roma
       i2: Nouvelles Diurna
       i3: Romiuna
-    - q: What does the name mean ?
+    - q: What does the meaning of the romania name of the mass media type used ?
       a: Daily Events
       i1: News
       i2: Yearly Events
