@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -94,6 +95,9 @@ namespace Quiz
 
         private async void OnEnteredPitstop(Collider car)
         {
+            if (!car.GetComponentInParent<PhotonView>().IsMine)
+                return;
+
             car.GetComponentInParent<CarMovementView>().SetControls(false);
             car.attachedRigidbody.DOMove(pitstopPosition.position, moveToPitstopInterval);
 
