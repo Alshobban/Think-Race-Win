@@ -5,16 +5,12 @@ using Photon.Pun;
 
 public class DestroyPickup : MonoBehaviour
 {
-    //public GameObject powerupEffectObj;
-    private bool added = false;
-    private float distance= 10.0f;
-    [SerializeField]
-    private string powerupEffectObj = "Explode9";
+    private bool added,entered;
 
     private void Start()
     {
         GetComponent<Rigidbody>().useGravity = false;
-        //GetComponent<Rigidbody>().detectCollisions = false;
+        GetComponent<Rigidbody>().detectCollisions = false;
         added = true;
     }
 
@@ -28,10 +24,10 @@ public class DestroyPickup : MonoBehaviour
             {
                 //transform.SetParent(null);
                 GetComponent<Rigidbody>().isKinematic = false;
-                GetComponent<Rigidbody>().AddRelativeForce(transform.forward * 1000f * Time.deltaTime, ForceMode.Impulse);
+               // GetComponent<Rigidbody>().AddRelativeForce(transform.forward * 1000f * Time.deltaTime, ForceMode.Impulse);
                 GetComponent<Rigidbody>().useGravity = true;
                 GetComponent<Rigidbody>().detectCollisions = true;
-                
+                transform.SetParent(null);
 
                 Pickup.added = false;
             }
@@ -40,6 +36,13 @@ public class DestroyPickup : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag != "Player")
+        {
+            Debug.Log("entered");
+            GetComponent<Rigidbody>().isKinematic = false;
+            GetComponent<Rigidbody>().useGravity = false;
+            entered = true;
+        }
+        if (other.tag == "Player" && entered)
         {
             //instantiate the effect!
             Debug.Log("entered");
