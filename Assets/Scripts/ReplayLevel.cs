@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ReplayLevel : MonoBehaviour
@@ -20,6 +21,7 @@ public class ReplayLevel : MonoBehaviour
     {
         _lapCounter = 0;
         canvas.SetActive(false);
+        PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene("Main");
     }
 
