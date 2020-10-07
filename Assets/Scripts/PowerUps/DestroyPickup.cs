@@ -30,7 +30,7 @@ public class DestroyPickup : MonoBehaviour
                 GetComponent<Rigidbody>().useGravity = true;
                 GetComponent<Rigidbody>().detectCollisions = true;
                 GetComponent<Rigidbody>().isKinematic = false;
-                GetComponent<Rigidbody>().AddForce(transform.forward * 200f * Time.deltaTime, ForceMode.Impulse);
+                GetComponent<Rigidbody>().AddForce(transform.forward * 1000f * Time.deltaTime, ForceMode.Impulse);
                 
                 Pickup.added = false;
             }
@@ -42,7 +42,7 @@ public class DestroyPickup : MonoBehaviour
         {
             //instantiate the effect!
             Debug.Log("entered");
-            PhotonNetwork.Instantiate(powerupEffectObj, transform.position, transform.rotation);
+            PhotonNetwork.Instantiate("Explode9", transform.position, transform.rotation);
             //deactivating the mesh and collider before destroying the gameobject later!
             GetComponent<MeshRenderer>().enabled = false;
             GetComponent<SphereCollider>().enabled = false;
