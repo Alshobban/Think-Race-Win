@@ -9,12 +9,10 @@ namespace Quiz
         [RuntimeInitializeOnLoadMethod]
         private static void LoadDefaultQuestionPack()
         {
-            var defaultPack = Resources.Load<QuestionPackScriptableObject>("Questions/QuestionPack").QuestionPack;
+            var defaultPacks = Resources.LoadAll<QuestionPackScriptableObject>("Questions/");
 
-            if (!QuestionPackLoader.QuestionPacks.Any(t => t.Equals(defaultPack)))
-            {
-                QuestionPackLoader.QuestionPacks = QuestionPackLoader.QuestionPacks.Append(defaultPack).ToArray();
-            }
+            QuestionPackLoader.QuestionPacks = QuestionPackLoader.QuestionPacks
+                .Union(defaultPacks.Select(t => t.QuestionPack)).ToArray();
         }
     }
 }
