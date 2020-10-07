@@ -12,7 +12,8 @@ namespace Quiz
             var defaultPacks = Resources.LoadAll<QuestionPackScriptableObject>("Questions/");
 
             QuestionPackLoader.QuestionPacks = QuestionPackLoader.QuestionPacks
-                .Union(defaultPacks.Select(t => t.QuestionPack)).ToArray();
+                .Union(defaultPacks.Where(t => !QuestionPackLoader.QuestionPacks.Any(q => q.Equals(t.QuestionPack)))
+                    .Select(t => t.QuestionPack)).ToArray();
         }
     }
 }
