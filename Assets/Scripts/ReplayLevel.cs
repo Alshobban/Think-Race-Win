@@ -9,7 +9,7 @@ public class ReplayLevel : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         _lapCounter++;
-        if (_lapCounter > 3)
+        if (_lapCounter > 6)
         {
             Invoke(nameof(EnableCanvas), 1f);
             other.GetComponent<Car.CarMovement>().enabled = false;
