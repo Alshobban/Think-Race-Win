@@ -9,9 +9,6 @@ namespace Car
         {
             if (info.photonView == photonView)
             {
-                var anchor = transform.GetChild(0).GetChild(0);
-                GameSceneData.Instance.CinemachineVirtualCamera.Follow = anchor;
-                GameSceneData.Instance.CinemachineVirtualCamera.LookAt = anchor;
             }
 
             Destroy(this);

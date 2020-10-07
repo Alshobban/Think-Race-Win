@@ -43,8 +43,12 @@ namespace SceneSpecific.Game
         private void SpawnCar(int prefabNumber, Vector3 position, Quaternion rotation)
         {
             var newCar = PhotonNetwork.Instantiate(localPlayerPrefabLocation, position, Quaternion.identity);
-            newCar.GetComponent<CarSpawner>()?.SpawnCar(prefabNumber);
+            // newCar.GetComponent<CarSpawner>()?.SpawnCar(prefabNumber);
             newCar.transform.GetChild(0).GetChild(0).Rotate(0f, rotation.eulerAngles.y, 0f);
+
+            var anchor = newCar.transform.GetChild(0).GetChild(0);
+            GameSceneData.Instance.CinemachineVirtualCamera.Follow = anchor;
+            GameSceneData.Instance.CinemachineVirtualCamera.LookAt = anchor;
         }
 
 #if UNITY_EDITOR

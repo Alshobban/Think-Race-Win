@@ -14,6 +14,8 @@ namespace Car
 
         private void Start()
         {
+            GetComponent<CarSpawner>()?.SpawnRandomCar();
+            
             _carVisualsView = GetComponentInChildren<CarVisualsView>();
             _carVisualsView.SetWheelTransforms();
         }
