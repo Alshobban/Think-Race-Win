@@ -12,7 +12,7 @@ namespace Network
             if (PhotonNetwork.NetworkClientState != ClientState.Disconnected)
             {
                 PhotonNetwork.ConnectUsingSettings();
-                PhotonNetwork.ConnectToRegion(NetworkSettings.Instance.ServerRegion);
+                PhotonNetwork.ConnectToRegion("eu");
             }
             else
             {
